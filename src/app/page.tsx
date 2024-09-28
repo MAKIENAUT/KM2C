@@ -6,26 +6,12 @@ export default async function Home() {
   console.log("Response from getPosts:", res);
 
   return (
-    <Main variant="primary">
-      <h1>HELLO WORLD</h1>
-      {res.errMsg ? (
-        <p>Error: {res.errMsg}</p>
-      ) : (
-        <div>
-          <p>Posts retrieved: {res.data ? res.data.length : 0}</p>
-          {res.data && res.data.length > 0 ? (
-            <ul>
-              {res.data.map((post) => (
-                <li key={post._id}>
-                  {post.msg}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No posts available.</p>
-          )}
-        </div>
-      )}
-    </Main>
+    <>
+      <div className="h-screen" /> {/* Spacer for the hero section */}
+      <Main variant="primary" className="min-h-screen flex-col">
+        <h2 className="mb-4 text-4xl">Welcome to Our Site</h2>
+        <p className="text-xl">Explore our amazing features and services.</p>
+      </Main>
+    </>
   );
 }
