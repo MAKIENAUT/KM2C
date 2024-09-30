@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        cream: "#fdfbd4",
+        "barn-red": "#7C0A02",
+        maroon: "#800000",
+        "chili-red": "#C21807",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
