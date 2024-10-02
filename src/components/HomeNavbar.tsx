@@ -24,13 +24,15 @@ const LINK_VALUES = [
   },
 ];
 
-export default function Navbar({ inView }: { inView: boolean }) {
+export default function HomeNavbar({ inView }: { inView: boolean }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
-      {isMenuOpen ? (
-        <nav className="fixed top-0 z-50 flex w-screen justify-end px-16 py-4 text-white">
+      <nav
+        className={`fixed top-0 z-50 flex w-screen ${isMenuOpen ? "justify-end" : "justify-between"} px-16 py-4 text-white`}
+      >
+        {isMenuOpen ? (
           <Button
             variant="menu"
             size="menu"
@@ -44,35 +46,35 @@ export default function Navbar({ inView }: { inView: boolean }) {
               className={`size-10`}
             />
           </Button>
-        </nav>
-      ) : (
-        <nav className="fixed top-0 z-50 flex w-screen justify-between px-16 py-4 text-white">
-          <Link href="#">
-            <Image
-              alt="Navbar icon"
-              src="/km2c-logo.svg"
-              width={0}
-              height={0}
-              className={`${inView ? "w-16 invert" : "hidden"}`}
-            />
-          </Link>
-          <Button
-            variant="menu"
-            size="menu"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <Image
-              alt="Navbar icon"
-              src="/icon-menu.svg"
-              width={0}
-              height={0}
-              className={`${inView ? "invert" : ""} size-10`}
-            />
-          </Button>
-        </nav>
-      )}
+        ) : (
+          <>
+            <Link href="/">
+              <Image
+                alt="Navbar icon"
+                src="/km2c-logo.svg"
+                width={0}
+                height={0}
+                className={`${inView ? "w-16 invert" : "hidden"}`}
+              />
+            </Link>
+            <Button
+              variant="menu"
+              size="menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Image
+                alt="Navbar icon"
+                src="/icon-menu.svg"
+                width={0}
+                height={0}
+                className={`${inView ? "invert" : ""} size-10`}
+              />
+            </Button>
+          </>
+        )}
+      </nav>
       <section
-        className={`${isMenuOpen ? "" : "hidden"} ${vt323.className} fixed top-0 z-40 min-h-screen w-screen bg-barn-red p-16`}
+        className={`${isMenuOpen ? "" : "hidden"} ${vt323.className} fixed z-40 min-h-screen w-screen overflow-hidden bg-barn-red p-16`}
       >
         <div
           className={`mb-12 flex items-center justify-center gap-8 text-8xl text-white`}
