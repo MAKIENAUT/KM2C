@@ -115,3 +115,61 @@ export default function Navbar({ inView }: { inView: boolean }) {
     </>
   );
 }
+
+// MAKIE'S DRAFT
+
+// import { motion } from "framer-motion";
+
+// interface NavbarProps {
+//   variant?: "light" | "dark";
+//   className?: string;
+// }
+
+// export const Navbar = ({ variant = "light", className = "" }: NavbarProps) => {
+//   const logoFilter = variant === "light" ? "brightness(0) invert(1)" : "none";
+//   const bgColor = variant === "light" ? "bg-transparent" : "bg-white";
+
+//   return (
+//     <motion.nav
+//       initial={{ opacity: 0, y: -20 }}
+//       animate={{ opacity: 1, y: 0 }}
+//       transition={{ duration: 0.4 }}
+//       className={`fixed left-0 right-0 top-0 z-50 ${bgColor} ${className}`}
+//     >
+//       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
+//         <img
+//           src="/km2c-logo.svg"
+//           alt="KM2C Logo"
+//           className="h-12 w-auto transition-all duration-300"
+//           style={{ filter: logoFilter }}
+//         />
+//         {/* Add your navigation links here */}
+//         <div className="hidden space-x-8 md:flex">
+//           <NavLink href="/about" variant={variant}>About</NavLink>
+//           <NavLink href="/projects" variant={variant}>Projects</NavLink>
+//           <NavLink href="/contact" variant={variant}>Contact</NavLink>
+//         </div>
+//       </div>
+//     </motion.nav>
+//   );
+// };
+
+// interface NavLinkProps {
+//   href: string;
+//   children: React.ReactNode;
+//   variant: "light" | "dark";
+// }
+
+// const NavLink = ({ href, children, variant }: NavLinkProps) => {
+//   const textColor = variant === "light" ? "text-white" : "text-black";
+//   const hoverColor = variant === "light" ? "hover:text-white/80" : "hover:text-black/80";
+
+//   return (
+//     <a
+//       href={href}
+//       className={`${textColor} ${hoverColor} transition-colors duration-200`}
+//     >
+//       {children}
+//     </a>
+//   );
+// };
