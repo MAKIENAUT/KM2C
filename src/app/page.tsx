@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/HomeNavbar";
 import { getPosts } from "../../_actions/postAction";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
