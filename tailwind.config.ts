@@ -22,6 +22,7 @@ const config: Config = {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate"), "prettier-plugin-tailwindcss"],
 };
 export default config;
