@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { spaceGrotesk, vt323 } from "@/lib/fonts";
+import { spaceGrotesk } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
