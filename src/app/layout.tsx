@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { spaceGrotesk, vt323 } from "@/lib/fonts";
 import "./globals.css";
-import NavbarHero from "@/components/HeroNavbar";
 
 export const metadata: Metadata = {
   title: "KM2C",
