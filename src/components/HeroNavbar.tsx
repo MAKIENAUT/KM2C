@@ -73,7 +73,7 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showNavbar, setShowNavbar] = useState(false);
   const [showHeroLogo, setShowHeroLogo] = useState(true);
-  // const [logoColorProgress, setLogoColorProgress] = useState(0);
+  const [, setLogoColorProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
