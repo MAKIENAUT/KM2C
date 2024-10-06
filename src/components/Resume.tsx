@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { forwardRef, useRef, useEffect } from "react";
-import { ParallaxText } from "./ParallaxText";
 import { Mail, Phone, Languages, Camera, Film, Edit } from "lucide-react";
+import Image from "next/image";
 
 interface ResumeProps {
   intersectionRatio: number;
@@ -14,7 +14,7 @@ const experienceData = [
     type: "Documentary",
     year: "2024",
     description:
-      "Through an exploration of migration's history, Kirsten goes through a journey around Europe to understand the profound experience of being separated from one's homeland and the search for a new sense of belonging.",
+      "Through an exploration of migration&apos;s history, Kirsten goes through a journey around Europe to understand the profound experience of being separated from one&apos;s homeland and the search for a new sense of belonging.",
   },
   {
     title: "THE ANGELS TRUMPET",
@@ -22,7 +22,7 @@ const experienceData = [
     type: "Shadow Puppetry",
     year: "2024",
     description:
-      "Served as colorist for the film 'The Angels of Trumpet', applying shadow puppetry and animation techniques that resulted in a visually striking black-and-white film.",
+      "Served as colorist for the film &apos;The Angels of Trumpet&apos;, applying shadow puppetry and animation techniques that resulted in a visually striking black-and-white film.",
   },
   {
     title: "GOD GOT US",
@@ -47,7 +47,6 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
     const skillsY = useTransform(scrollYProgress, [0.5, 0.8], [90, -90]);
     const educationY = useTransform(scrollYProgress, [0.7, 1], [120, -120]);
 
-    // Add scroll lock effect
     useEffect(() => {
       const container = containerRef.current;
       if (!container) return;
@@ -88,9 +87,11 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
               <div className="relative md:col-span-4 md:col-start-2">
                 <div className="aspect-square overflow-hidden rounded-xl bg-white p-2 shadow-lg">
                   <div className="h-full w-full rounded-2xl bg-gray-100">
-                    <img
+                    <Image
                       src="/frontporch.jpg"
                       alt="Profile"
+                      width={400}
+                      height={400}
                       className="h-full w-full rounded-lg object-cover"
                     />
                   </div>
@@ -138,9 +139,9 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                 <p className="leading-relaxed text-gray-600">
                   A filmmaker based in Paris, France, with a dual degree in Film
                   Art from studies across Paris, the Netherlands, and Boston.
-                  Through the Global Bachelors of Film Art (GBFA) program, I've
-                  developed comprehensive expertise in film production, from
-                  pre- to post-production roles.
+                  Through the Global Bachelors of Film Art (GBFA) program,
+                  I&apos;ve developed comprehensive expertise in film
+                  production, from pre- to post-production roles.
                 </p>
               </motion.div>
 
@@ -153,7 +154,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                   Professional Experience
                 </h3>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {experienceData.map((exp, index) => (
+                  {experienceData.map((exp) => (
                     <div
                       key={exp.title}
                       className="group relative cursor-pointer rounded-2xl bg-white p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"

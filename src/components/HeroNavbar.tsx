@@ -59,8 +59,8 @@ const MenuItem = ({ link, text, img1, img2, onClick }: MenuItemProps) => {
         <Image
           alt="menu icon"
           src={isHovered ? img2 : img1}
-          width={0}
-          height={0}
+          width={64}
+          height={64}
           className="w-16 transition-all duration-300"
         />
         {text}
@@ -107,7 +107,6 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const logoFilter = `brightness(0) invert(${1 - logoColorProgress})`;
   const menuIconFilter = isMenuOpen
     ? "brightness(0) invert(1)"
     : `brightness(0) invert(${showHeroLogo ? 1 : 0})`;
@@ -134,9 +133,11 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
           {!isMenuOpen && (
-            <img
+            <Image
               src="/km2c-logo.svg"
               alt="KM2C Logo"
+              width={48}
+              height={48}
               className="h-12 w-auto transition-all duration-300"
               style={{ filter: menuIconFilter }}
             />
@@ -172,16 +173,16 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
               <Image
                 src="/menu-dashed-line.svg"
                 alt="Menu dashed line"
-                width={0}
-                height={0}
+                width={200}
+                height={2}
                 className="w-1/6"
               />
               <h1>MENU</h1>
               <Image
                 src="/menu-dashed-line.svg"
                 alt="Menu dashed line"
-                width={0}
-                height={0}
+                width={200}
+                height={2}
                 className="w-1/6"
               />
             </div>
@@ -236,9 +237,11 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.4 }}
                     >
-                      <img
+                      <Image
                         src="/km2c-logo.svg"
                         alt="KM2C Logo"
+                        width={600}
+                        height={200}
                         className="w-full"
                         style={{ filter: "brightness(0) invert(1)" }}
                       />
