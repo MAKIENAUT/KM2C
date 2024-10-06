@@ -9,6 +9,8 @@ export const useInView = (
   const [intersectionRatio, setIntersectionRatio] = useState(0);
 
   useEffect(() => {
+    const currentRef = ref.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting);
@@ -18,13 +20,13 @@ export const useInView = (
       { threshold: thresholds }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [ref, thresholds, onChange]);
