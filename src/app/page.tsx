@@ -1,17 +1,22 @@
-import Main from "@/components/Main";
-import { getPosts } from "../../_actions/postAction";
+"use client";
+import { useRef } from "react";
+import { HeroNavbar } from "@/components/HeroNavbar";
+import { Resume } from "@/components/Resume";
+import { useInView } from "@/hooks/useInView";
 
-export default async function Home() {
-  const res = await getPosts();
-  console.log("Response from getPosts:", res);
+export default function Home() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  // Increase precision of thresholds near 1.0
+  const thresholds = [
+    ...Array.from({ length: 90 }, (_, i) => i / 100),
+    ...Array.from({ length: 100 }, (_, i) => 0.9 + i / 1000),
+  ];
+  const { intersectionRatio } = useInView(contentRef, thresholds);
 
   return (
-    <>
-      <div className="h-screen" /> {/* Spacer for the hero section */}
-      <Main variant="primary" className="min-h-screen flex-col">
-        <h2 className="mb-4 text-4xl">Welcome to Our Site</h2>
-        <p className="text-xl">Explore our amazing features and services.</p>
-      </Main>
-    </>
+    <main className="w-full">
+      <HeroNavbar contentRef={contentRef} />
+      <Resume ref={contentRef} intersectionRatio={intersectionRatio} />
+    </main>
   );
 }
