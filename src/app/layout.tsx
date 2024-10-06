@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="cursor-default scroll-smooth">
       <body
         className={`${spaceGrotesk.className} relative bg-black transition-all`}
       >

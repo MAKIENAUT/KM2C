@@ -20,6 +20,10 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      cursor: {
+        default: "url(/retro-cursor.svg), default",
+        pointer: "url(/retro-pointer.svg), pointer",
+      },
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
