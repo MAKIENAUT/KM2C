@@ -24,12 +24,17 @@ export default function PhotographyPage() {
           <Carousel
             opts={{ dragFree: true, loop: true }}
             plugins={[
-              AutoScroll({ stopOnInteraction: false, stopOnMouseEnter: true }),
+              AutoScroll({
+                stopOnInteraction: false,
+                stopOnMouseEnter: true,
+                speed: 0.5, // Slower speed
+                direction: i % 2 === 0 ? "forward" : "backward", // Alternate direction
+              }),
             ]}
           >
             <CarouselContent className="m-0">
-              {imgs.map(({ imgSlug, imgSrc, imgTitle }, i) => (
-                <CarouselItem key={i} className="p-0">
+              {imgs.map(({ imgSlug, imgSrc, imgTitle }, j) => (
+                <CarouselItem key={j} className="p-0">
                   <FilmStrip
                     src={`${folderSrc}${imgSrc}`}
                     title={imgTitle}

@@ -36,7 +36,7 @@ export default function DynamicImagePage({
       : PHOTO_VALUES[currentFolder].imgs[currentIndex + 1];
 
   return (
-    <section className="relative grid h-[calc(100dvh-var(--nav-height))] grid-cols-[40%_auto] items-center justify-center gap-8 bg-cream px-24 py-16">
+    <section className="width-full relative box-border flex h-dvh items-center justify-center bg-cream">
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${prevPhoto?.imgSlug}`}
         className="group absolute left-4 p-2 hover:bg-maroon"
@@ -49,16 +49,20 @@ export default function DynamicImagePage({
           className="w-8 group-hover:invert"
         />
       </Link>
-      <Image
-        alt={photo?.imgTitle}
-        className="h-full object-cover object-center"
-        src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo?.imgSrc}`}
-        width={2000}
-        height={2000}
-      />
-      <div className="flex flex-col gap-4">
-        <h1 className={`${vt323.className} text-8xl`}>{photo?.imgTitle}</h1>
-        <p>{photo?.imgDescription}</p>
+      <div className="grid w-full max-w-7xl grid-cols-[40%_auto] items-center gap-8">
+        <div className="relative h-[600px] w-[500px]">
+          <Image
+            alt={photo?.imgTitle}
+            className="object-cover object-center"
+            src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo?.imgSrc}`}
+            fill
+            sizes="(max-width: 500px) 100vw, 500px"
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <h1 className={`${vt323.className} text-8xl`}>{photo?.imgTitle}</h1>
+          <p>{photo?.imgDescription}</p>
+        </div>
       </div>
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${nextPhoto?.imgSlug}`}

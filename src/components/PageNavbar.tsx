@@ -30,7 +30,7 @@ export default function PageNavbar() {
   return (
     <>
       <nav
-        className={`sticky top-0 z-50 flex w-screen ${isMenuOpen ? "justify-end" : "justify-between border-b-2 border-black bg-cream"} px-16 py-4 text-white`}
+        className={`sticky top-0 z-50 flex ${isMenuOpen ? "justify-end" : "justify-between bg-cream"} px-16 py-4 text-white`}
       >
         {isMenuOpen ? (
           <Button

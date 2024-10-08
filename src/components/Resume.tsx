@@ -13,6 +13,8 @@ interface PolaroidProps {
   caption: string;
   isBack?: boolean;
   className?: string;
+  cursor?: string;
+  color?: string;
 }
 
 const contactInfo = [
@@ -36,24 +38,26 @@ const contactInfo = [
 const Polaroid = ({
   image,
   caption,
-  // isBack = false,
   className = "",
+  cursor = "",
+  color = "",
 }: PolaroidProps) => (
   <motion.div
-    className={`absolute bg-white p-4 shadow-xl ${className}`}
+    className={`absolute bg-white p-4 shadow-xl cursor-${cursor} ${className}`}
     initial={false}
   >
-    <div className="relative aspect-[4/5]">
+    <div className={`relative aspect-[4/5] cursor-${cursor}`}>
       <Image
         src={image}
         alt={caption}
         width={400}
         height={500}
-        className="h-full w-full object-cover"
+        className={`h-full w-full object-cover cursor-${cursor}`}
       />
-      ``
     </div>
-    <div className="font-handwriting mt-4 text-left text-gray-600">
+    <div
+      className={`font-handwriting mt-4 text-left cursor-${cursor} ${color}`}
+    >
       {caption}
     </div>
     <div className="absolute -top-4 left-1/2 h-8 w-6 -translate-x-1/2 bg-zinc-300" />
@@ -69,9 +73,9 @@ const PolaroidStack = () => {
       animate="initial"
     >
       {/* Back Polaroid - More About Me */}
-      <Link href="/about" className="cursor-pointer">
+      <Link href="/about" className="block">
         <motion.div
-          className="relative left-0 top-0 z-0"
+          className="relative left-0 top-0 z-0 cursor-pointer"
           variants={{
             initial: {
               rotate: 0,
@@ -86,10 +90,11 @@ const PolaroidStack = () => {
           }}
         >
           <Polaroid
-            image="/Paris.jpg"
+            image="/Kirsten.jpeg"
             caption="Click: More About Me..."
-            isBack={true}
             className="cursor-pointer"
+            cursor="pointer"
+            color="text-amber-500"
           />
         </motion.div>
       </Link>
@@ -110,7 +115,12 @@ const PolaroidStack = () => {
           },
         }}
       >
-        <Polaroid image="/frontporch.jpg" caption="Kirsten Ceralde, 2024" />
+        <Polaroid
+          image="/Kirsten.jpeg"
+          caption="Kirsten Ceralde, 2024"
+          cursor="auto"
+          color="text-gray-600"
+        />
       </motion.div>
     </motion.div>
   );
