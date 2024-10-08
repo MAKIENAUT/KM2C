@@ -43,9 +43,6 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
 
     const profileY = useTransform(scrollYProgress, [0, 0.2], [0, -30]);
     const bioY = useTransform(scrollYProgress, [0.1, 0.3], [30, -30]);
-    const experienceY = useTransform(scrollYProgress, [0.2, 0.6], [60, -60]);
-    const skillsY = useTransform(scrollYProgress, [0.5, 0.8], [90, -90]);
-    const educationY = useTransform(scrollYProgress, [0.7, 1], [120, -120]);
 
     useEffect(() => {
       const container = containerRef.current;
@@ -143,107 +140,6 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                   I&apos;ve developed comprehensive expertise in film
                   production, from pre- to post-production roles.
                 </p>
-              </motion.div>
-
-              {/* Experience Section */}
-              <motion.div style={{ y: experienceY }} className="relative">
-                <div className="absolute -left-4 -top-4 rounded-full bg-blue-100 p-4">
-                  <Film className="h-8 w-8 text-blue-500" />
-                </div>
-                <h3 className="mb-8 ml-14 text-2xl font-semibold text-gray-900">
-                  Professional Experience
-                </h3>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {experienceData.map((exp) => (
-                    <div
-                      key={exp.title}
-                      className="group relative cursor-pointer rounded-2xl bg-white p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
-                    >
-                      <div className="mb-4">
-                        <span className="inline-block rounded-full bg-orange-100 px-3 py-1 text-sm text-orange-600">
-                          {exp.year}
-                        </span>
-                      </div>
-                      <h4 className="mb-2 text-xl font-semibold text-gray-900">
-                        {exp.title}
-                      </h4>
-                      <p className="mb-3 text-sm font-medium text-gray-600">
-                        {exp.role} | {exp.type}
-                      </p>
-                      <p className="text-sm text-gray-600">{exp.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Skills Section */}
-              <motion.div style={{ y: skillsY }} className="relative">
-                <div className="absolute -left-4 -top-4 rounded-full bg-green-100 p-4">
-                  <Edit className="h-8 w-8 text-green-500" />
-                </div>
-                <h3 className="mb-8 ml-14 text-2xl font-semibold text-gray-900">
-                  Skills
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {[
-                    "Premier pro",
-                    "Illustrator",
-                    "Photoshop",
-                    "InDesign",
-                    "After Effects",
-                    "Writer",
-                    "Camera Assistant",
-                    "Lighting Technique",
-                    "Pre-Production",
-                    "Post-Production",
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="cursor-pointer rounded-full bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Education Section */}
-              <motion.div style={{ y: educationY }}>
-                <h3 className="mb-8 text-2xl font-semibold text-gray-900">
-                  Education
-                </h3>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {[
-                    {
-                      school: "EMERSON COLLEGE",
-                      degree: "BFA in Film Art",
-                      years: "2021-2024",
-                      color: "bg-orange-50",
-                    },
-                    {
-                      school: "PARIS COLLEGE OF ART",
-                      degree: "BFA in Film Art",
-                      years: "2021-2024",
-                      color: "bg-blue-50",
-                    },
-                  ].map((edu) => (
-                    <div
-                      key={edu.school}
-                      className={`relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg ${edu.color}`}
-                    >
-                      <div className="relative z-10">
-                        <h4 className="text-2xl font-semibold text-gray-900">
-                          {edu.school}
-                        </h4>
-                        <p className="mt-2 text-gray-600">{edu.degree}</p>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {edu.years}
-                        </p>
-                      </div>
-                      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/50" />
-                    </div>
-                  ))}
-                </div>
               </motion.div>
             </div>
           </div>
