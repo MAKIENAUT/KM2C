@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { forwardRef, useRef, useEffect } from "react";
-import { Mail, Phone, Languages, Camera, Film, Edit } from "lucide-react";
+import { Mail, Phone, Languages, Camera } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,28 +33,10 @@ const contactInfo = [
   },
 ];
 
-const skillsData = {
-  "Film Production": [
-    "Pre-Production",
-    "Post-Production",
-    "Camera Assistant",
-    "Lighting Technique",
-    "Direction",
-  ],
-  Software: [
-    "Premier Pro",
-    "After Effects",
-    "Illustrator",
-    "Photoshop",
-    "InDesign",
-  ],
-  Creative: ["Writer", "Director", "Editor", "Colorist", "Storyboarding"],
-};
-
 const Polaroid = ({
   image,
   caption,
-  isBack = false,
+  // isBack = false,
   className = "",
 }: PolaroidProps) => (
   <motion.div
@@ -69,6 +51,7 @@ const Polaroid = ({
         height={500}
         className="h-full w-full object-cover"
       />
+      ``
     </div>
     <div className="font-handwriting mt-4 text-left text-gray-600">
       {caption}
