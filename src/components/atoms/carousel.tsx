@@ -223,6 +223,7 @@ const CarouselPrevious = React.forwardRef<
     </Button>
   );
 });
+CarouselPrevious.displayName = "CarouselPrevious"; // Add display name here
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
@@ -251,6 +252,7 @@ const CarouselNext = React.forwardRef<
     </Button>
   );
 });
+CarouselNext.displayName = "CarouselNext"; // Add display name here
 
 export {
   type CarouselApi,
