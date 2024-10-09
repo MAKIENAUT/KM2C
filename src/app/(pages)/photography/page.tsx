@@ -12,13 +12,17 @@ import { PHOTO_VALUES } from "@/lib/values";
 
 export default function PhotographyPage() {
   return (
-    <section className="bg-cream py-2">
-      <h1 className={`${vt323.className} mb-4 px-16 text-8xl text-maroon`}>
+    <section className="min-h-screen bg-black/95 pt-16">
+      <h1
+        className={`${vt323.className} mb-4 px-16 text-8xl text-red-600 drop-shadow-glow`}
+      >
         PHOTOGRAPHY
       </h1>
       {PHOTO_VALUES.map(({ folderTitle, folderSrc, imgs, folderSlug }, i) => (
         <div key={i} className="mb-16 flex flex-col gap-2">
-          <h1 className={`${vt323.className} px-2 text-6xl text-maroon`}>
+          <h1
+            className={`${vt323.className} px-2 text-6xl text-cream transition-colors hover:text-red-500`}
+          >
             {folderTitle}
           </h1>
           <Carousel
@@ -27,8 +31,8 @@ export default function PhotographyPage() {
               AutoScroll({
                 stopOnInteraction: false,
                 stopOnMouseEnter: true,
-                speed: 0.5, // Slower speed
-                direction: i % 2 === 0 ? "forward" : "backward", // Alternate direction
+                speed: 0.5,
+                direction: i % 2 === 0 ? "forward" : "backward",
               }),
             ]}
           >
