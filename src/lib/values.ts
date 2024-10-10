@@ -588,3 +588,11 @@ export const LINK_VALUES = [
     imgHover: "/person.svg",
   },
 ];
+
+export const ABOUT_VALUES = {
+  bio: [
+    `Kirsten Ceralde is a filmmaker based in Paris, France. She earned her dual degree in Film Art, having studied across Paris, the Netherlands, and Boston. Within the Global Bachelors of Film Art (GBFA) program, she collaborated closely with a tight-knit community, gaining experience in all parts of film production from pre- to post-production roles.`,
+    `Alongside, Kirsten created her own films, seamlessly balancing narrative and documentary filmmaking. A recent work of hers is Diskarte explores migration's history. Kirsten goes through a journey around Europe to understand the profound experience of being separated from one's homeland and the search for a new sense of belonging. The film draws upon the lived realities of Overseas Filipina Workers, as Kirsten reconnects with and reinterprets her own cultural roots.`,
+    `Working with moving images inspired her to take still images as well and began experimenting with analog photography. Her style expands to portraits, street photography, and shooting daily life.`,
+  ],
+};
