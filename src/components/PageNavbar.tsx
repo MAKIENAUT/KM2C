@@ -5,24 +5,8 @@ import { Button } from "./atoms/button";
 import Link from "next/link";
 import { useState } from "react";
 import { vt323 } from "@/lib/fonts";
-
-const LINK_VALUES = [
-  {
-    link: "/photography",
-    text: "PHOTOGRAPHY",
-    img: "/cam-icon.svg",
-  },
-  {
-    link: "/filmography",
-    text: "FILMOGRAPHY",
-    img: "/film-icon.svg",
-  },
-  {
-    link: "/about-me",
-    text: "ABOUT ME",
-    img: "/user-icon.svg",
-  },
-];
+import { LINK_VALUES } from "@/lib/values";
+import MenuList from "./molecules/MenuList";
 
 export default function PageNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,9 +14,20 @@ export default function PageNavbar() {
   return (
     <>
       <nav
-        className={`sticky top-0 z-50 flex ${isMenuOpen ? "justify-end" : "justify-between bg-cream"} px-16 py-4 text-white`}
+        className={`${isMenuOpen ? "" : "bg-black"} sticky top-0 z-50 text-white`}
       >
-        {isMenuOpen ? (
+        <section
+          className={`${isMenuOpen ? "justify-end" : "justify-between"} mx-auto flex h-20 max-w-7xl items-center px-4 text-white`}
+        >
+          <Link href="/" className={isMenuOpen ? "hidden" : ""}>
+            <Image
+              alt="Navbar icon"
+              src="/km2c-logo.svg"
+              width={0}
+              height={0}
+              className={`w-16`}
+            />
+          </Link>
           <Button
             variant="menu"
             size="menu"
@@ -40,38 +35,13 @@ export default function PageNavbar() {
           >
             <Image
               alt="Navbar icon"
-              src="/close-icon.svg"
+              src={isMenuOpen ? "/close-icon.svg" : "/icon-menu.svg"}
               width={0}
               height={0}
               className={`size-10`}
             />
           </Button>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                alt="Navbar icon"
-                src="/km2c-logo.svg"
-                width={0}
-                height={0}
-                className={`w-16 invert`}
-              />
-            </Link>
-            <Button
-              variant="menu"
-              size="menu"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Image
-                alt="Navbar icon"
-                src="/icon-menu.svg"
-                width={0}
-                height={0}
-                className={`size-10 invert`}
-              />
-            </Button>
-          </>
-        )}
+        </section>
       </nav>
       <section
         className={`${isMenuOpen ? "" : "hidden"} ${vt323.className} fixed top-0 z-40 min-h-screen w-screen bg-barn-red p-16`}
@@ -97,19 +67,12 @@ export default function PageNavbar() {
         </div>
         <div className="flex flex-col items-center">
           <div className="flex flex-col gap-4">
-            {LINK_VALUES.map(({ link, text, img }) => (
-              <Link key={link} href={link}>
-                <div className={`flex items-center gap-8 text-8xl text-white`}>
-                  <Image
-                    alt="menu icon"
-                    src={img}
-                    width={0}
-                    height={0}
-                    className={`${img === "/menu-user-icon.svg" ? "w-10" : "w-16"}`}
-                  />
-                  {text}
-                </div>
-              </Link>
+            {LINK_VALUES.map((linkProps) => (
+              <MenuList
+                key={linkProps.link}
+                {...linkProps}
+                onClick={() => setIsMenuOpen(false)}
+              />
             ))}
           </div>
         </div>

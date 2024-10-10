@@ -1,14 +1,17 @@
-"use client";
-
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/atoms/carousel";
-import AutoScroll from "embla-carousel-auto-scroll";
 import FilmStrip from "@/components/FilmStrip";
 import { vt323 } from "@/lib/fonts";
 import { PHOTO_VALUES } from "@/lib/values";
+import AutoScroll from "embla-carousel-auto-scroll";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "KM2C - Photography",
+};
 
 export default function PhotographyPage() {
   return (
