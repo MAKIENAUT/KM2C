@@ -94,7 +94,7 @@ const PolaroidStack = () => {
             caption="Click: More About Me..."
             className="cursor-pointer"
             cursor="pointer"
-            color="text-amber-500"
+            color="text-red-500"
           />
         </motion.div>
       </Link>
@@ -156,7 +156,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
     return (
       <section
         ref={ref}
-        className="relative h-screen cursor-default bg-gradient-to-br from-cream to-gray-50 pt-20"
+        className="relative h-screen cursor-default bg-black pt-20"
       >
         <div
           ref={containerRef}
@@ -198,16 +198,16 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                       },
                     }}
                   >
-                    <h2 className="text-5xl font-bold text-gray-900 md:text-7xl">
+                    <h2 className="text-5xl font-bold text-cream md:text-7xl">
                       KIRSTEN
                     </h2>
-                    <h2 className="text-5xl font-bold text-gray-900 md:text-7xl">
+                    <h2 className="text-5xl font-bold text-cream md:text-7xl">
                       CERALDE
                     </h2>
                   </motion.div>
 
                   <motion.div
-                    className="mt-6 flex flex-col gap-4 text-gray-600"
+                    className="mt-6 flex flex-col gap-4 text-gray-300"
                     variants={{
                       initial: {
                         opacity: 0,
@@ -245,7 +245,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                           },
                         }}
                       >
-                        <info.icon className="text-orange-500" size={18} />
+                        <info.icon className="text-red-500" size={18} />
                         <span>{info.text}</span>
                       </motion.div>
                     ))}
@@ -259,15 +259,15 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
               {/* Bio Section */}
               <motion.div
                 style={{ y: bioY }}
-                className="relative mx-auto max-w-4xl rounded-2xl bg-white p-8 shadow-lg"
+                className="relative mx-auto max-w-4xl rounded-2xl bg-gray-900 p-8 shadow-lg"
               >
-                <div className="absolute -left-4 -top-4 rounded-full bg-orange-100 p-4">
-                  <Camera className="h-8 w-8 text-orange-500" />
+                <div className="absolute -left-4 -top-4 rounded-full bg-orange-900/50 p-4">
+                  <Camera className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="mb-4 text-2xl font-semibold text-gray-900">
+                <h3 className="mb-4 text-2xl font-semibold text-cream">
                   About Me
                 </h3>
-                <p className="leading-relaxed text-gray-600">
+                <p className="leading-relaxed text-gray-300">
                   A filmmaker based in Paris, France, with a dual degree in Film
                   Art from studies across Paris, the Netherlands, and Boston.
                   Through the Global Bachelors of Film Art (GBFA) program,
@@ -279,8 +279,8 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-0 top-0 h-32 w-full bg-gradient-to-b from-black/5 to-transparent" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/5 to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 h-32 w-full bg-gradient-to-b from-black/50 to-transparent" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/50 to-transparent" />
       </section>
     );
   }

@@ -194,6 +194,8 @@ const CarouselItem = React.forwardRef<
 });
 CarouselItem.displayName = "CarouselItem";
 
+// Add these styles to the CarouselPrevious and CarouselNext components within carousel.tsx
+
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
@@ -206,7 +208,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "absolute h-8 w-8 rounded-full bg-black/60 text-cream transition-colors hover:bg-red-600 hover:text-white",
         orientation === "horizontal"
           ? "-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -221,7 +223,7 @@ const CarouselPrevious = React.forwardRef<
     </Button>
   );
 });
-CarouselPrevious.displayName = "CarouselPrevious";
+CarouselPrevious.displayName = "CarouselPrevious"; // Add display name here
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
@@ -235,7 +237,7 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "absolute h-8 w-8 rounded-full bg-black/60 text-cream transition-colors hover:bg-red-600 hover:text-white",
         orientation === "horizontal"
           ? "-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -250,7 +252,7 @@ const CarouselNext = React.forwardRef<
     </Button>
   );
 });
-CarouselNext.displayName = "CarouselNext";
+CarouselNext.displayName = "CarouselNext"; // Add display name here
 
 export {
   type CarouselApi,

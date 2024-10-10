@@ -1,4 +1,6 @@
-import PageNavbar from "@/components/PageNavbar";
+"use client";
+
+import { BaseNavbar } from "@/components/BaseNavbar";
 
 export default function PageLayout({
   children,
@@ -7,7 +9,7 @@ export default function PageLayout({
 }) {
   return (
     <>
-      <PageNavbar />
+      <BaseNavbar />
       {children}
     </>
   );

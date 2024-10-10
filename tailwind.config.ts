@@ -24,6 +24,10 @@ const config: Config = {
         default: "url(/retro-cursor.svg), default",
         pointer: "url(/retro-pointer.svg), pointer",
       },
+      dropShadow: {
+        white: "0 0 8px rgba(255, 255, 255, 0.5)",
+        glow: "0 0 10px rgba(255, 0, 0, 0.3)",
+      },
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
