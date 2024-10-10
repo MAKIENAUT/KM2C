@@ -567,3 +567,24 @@ export const PHOTO_VALUES = [
     ],
   },
 ];
+
+export const LINK_VALUES = [
+  {
+    link: "/photography",
+    text: "PHOTOGRAPHY",
+    img: "/cam-icon.svg",
+    imgHover: "/camera.svg",
+  },
+  {
+    link: "/filmography",
+    text: "FILMOGRAPHY",
+    img: "/film-icon.svg",
+    imgHover: "/vidcam.svg",
+  },
+  {
+    link: "/about",
+    text: "ABOUT ME",
+    img: "/user-icon.svg",
+    imgHover: "/person.svg",
+  },
+];
