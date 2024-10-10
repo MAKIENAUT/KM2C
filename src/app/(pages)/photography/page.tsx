@@ -12,15 +12,11 @@ import { PHOTO_VALUES } from "@/lib/values";
 
 export default function PhotographyPage() {
   return (
-    <section className="bg-cream py-2">
-      <h1 className={`${vt323.className} mb-4 px-16 text-8xl text-maroon`}>
-        PHOTOGRAPHY
-      </h1>
+    <section className="py-2 text-cream">
+      <h1 className={`${vt323.className} mb-4 px-16 text-8xl`}>PHOTOGRAPHY</h1>
       {PHOTO_VALUES.map(({ folderTitle, folderSrc, imgs, folderSlug }, i) => (
         <div key={i} className="mb-16 flex flex-col gap-2">
-          <h1 className={`${vt323.className} px-2 text-6xl text-maroon`}>
-            {folderTitle}
-          </h1>
+          <h1 className={`${vt323.className} px-2 text-6xl`}>{folderTitle}</h1>
           <Carousel
             opts={{ dragFree: true, loop: true }}
             plugins={[

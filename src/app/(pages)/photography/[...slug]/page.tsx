@@ -36,7 +36,7 @@ export default function DynamicImagePage({
       : PHOTO_VALUES[currentFolder].imgs[currentIndex + 1];
 
   return (
-    <section className="width-full relative box-border flex h-dvh items-center justify-center bg-cream">
+    <section className="width-full relative box-border flex min-h-[calc(100vh-var(--nav-height))] items-center justify-center py-16 text-cream">
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${prevPhoto?.imgSlug}`}
         className="group absolute left-4 p-2 hover:bg-maroon"
@@ -46,7 +46,7 @@ export default function DynamicImagePage({
           src="/left-arrow-icon.svg"
           width={0}
           height={0}
-          className="w-8 group-hover:invert"
+          className="w-8 invert"
         />
       </Link>
       <div className="grid w-full max-w-7xl grid-cols-[40%_auto] items-center gap-8">
@@ -73,7 +73,7 @@ export default function DynamicImagePage({
           src="/right-arrow-icon.svg"
           width={0}
           height={0}
-          className="w-8 group-hover:invert"
+          className="w-8 invert"
         />
       </Link>
     </section>
