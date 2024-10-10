@@ -8,66 +8,13 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "../hooks/useInView";
 import Image from "next/image";
-import Link from "next/link";
 import { vt323 } from "@/lib/fonts";
+import { LINK_VALUES } from "@/lib/values";
+import MenuList from "./molecules/MenuList";
 
 interface HeroNavbarProps {
   contentRef: React.RefObject<HTMLElement>;
 }
-
-const LINK_VALUES = [
-  {
-    link: "/photography",
-    text: "PHOTOGRAPHY",
-    img1: "/cam-icon.svg",
-    img2: "/camera.svg",
-  },
-  {
-    link: "/filmography",
-    text: "FILMOGRAPHY",
-    img1: "/film-icon.svg",
-    img2: "/vidcam.svg",
-  },
-  {
-    link: "/about-me",
-    text: "ABOUT ME",
-    img1: "/user-icon.svg",
-    img2: "/person.svg",
-  },
-];
-
-interface MenuItemProps {
-  link: string;
-  text: string;
-  img1: string;
-  img2: string;
-  onClick: () => void;
-}
-
-const MenuItem = ({ link, text, img1, img2, onClick }: MenuItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <Link
-      href={link}
-      onClick={onClick}
-      className="group px-4 hover:bg-white"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="flex items-center gap-8 text-8xl text-white group-hover:text-[#7C0A02]">
-        <Image
-          alt="menu icon"
-          src={isHovered ? img2 : img1}
-          width={64}
-          height={64}
-          className="w-16 transition-all duration-300"
-        />
-        {text}
-      </div>
-    </Link>
-  );
-};
 
 export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -189,7 +136,7 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
             <div className="flex flex-col items-center">
               <div className="flex flex-col gap-4">
                 {LINK_VALUES.map((linkProps) => (
-                  <MenuItem
+                  <MenuList
                     key={linkProps.link}
                     {...linkProps}
                     onClick={() => setIsMenuOpen(false)}
