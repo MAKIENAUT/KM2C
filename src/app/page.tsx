@@ -16,17 +16,17 @@ export default function Home() {
   const { intersectionRatio } = useInView(contentRef, thresholds);
 
   return (
-    <main className="w-full">
-      <body
-        className={`${spaceGrotesk.className} ${isMenuOpen ? "overflow-hidden" : ""} relative bg-black transition-all`}
-      >
+    <body
+      className={`${spaceGrotesk.className} ${isMenuOpen ? "overflow-hidden" : ""} relative bg-black transition-all`}
+    >
+      <main className="w-full">
         <HeroNavbar
           contentRef={contentRef}
           isMenuOpen={isMenuOpen}
           setIsMenuOpen={setIsMenuOpen}
         />
         <Resume ref={contentRef} intersectionRatio={intersectionRatio} />
-      </body>
-    </main>
+      </main>
+    </body>
   );
 }
