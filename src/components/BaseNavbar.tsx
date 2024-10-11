@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const LINK_VALUES = [
     img2: "/vidcam.svg",
   },
   {
-    link: "/about-me",
+    link: "/about",
     text: "ABOUT ME",
     img1: "/user-icon.svg",
     img2: "/person.svg",
@@ -60,11 +60,15 @@ const MenuItem = ({ link, text, img1, img2, onClick }: MenuItemProps) => {
 
 interface BaseNavbarProps {
   variant?: "transparent" | "solid";
+  isMenuOpen: boolean;
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const BaseNavbar = ({ variant = "transparent" }: BaseNavbarProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+export const BaseNavbar = ({
+  variant = "transparent",
+  isMenuOpen,
+  setIsMenuOpen,
+}: BaseNavbarProps) => {
   return (
     <>
       {/* Navbar */}
@@ -75,8 +79,10 @@ export const BaseNavbar = ({ variant = "transparent" }: BaseNavbarProps) => {
           y: 0,
         }}
         className={`fixed left-0 right-0 top-0 z-50 ${
-          variant === "solid" ? "bg-transparent" : "bg-transparent"
-        }`}
+          variant === "solid"
+            ? "bg-black/95 backdrop-blur-xl"
+            : "bg-transparent"
+        } ${isMenuOpen ? "bg-transparent" : ""}`}
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
           {!isMenuOpen && (

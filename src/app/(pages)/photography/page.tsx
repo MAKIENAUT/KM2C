@@ -14,14 +14,14 @@ export default function PhotographyPage() {
   return (
     <section className="min-h-screen bg-black/95 pt-16">
       <h1
-        className={`${vt323.className} mb-4 px-16 text-8xl text-red-600 drop-shadow-glow`}
+        className={`${vt323.className} mb-4 px-16 text-8xl text-chili-red drop-shadow-glow`}
       >
         PHOTOGRAPHY
       </h1>
       {PHOTO_VALUES.map(({ folderTitle, folderSrc, imgs, folderSlug }, i) => (
         <div key={i} className="mb-16 flex flex-col gap-2">
           <h1
-            className={`${vt323.className} px-2 text-6xl text-cream transition-colors hover:text-red-500`}
+            className={`${vt323.className} w-fit px-2 text-6xl text-cream transition-colors hover:text-chili-red`}
           >
             {folderTitle}
           </h1>

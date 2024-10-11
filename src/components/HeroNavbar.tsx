@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, SetStateAction, Dispatch } from "react";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "../hooks/useInView";
 import Image from "next/image";
@@ -7,9 +7,15 @@ import { BaseNavbar } from "./BaseNavbar";
 
 interface HeroNavbarProps {
   contentRef: React.RefObject<HTMLElement>;
+  isMenuOpen: boolean;
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
+export const HeroNavbar = ({
+  contentRef,
+  isMenuOpen,
+  setIsMenuOpen,
+}: HeroNavbarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showNavbar, setShowNavbar] = useState(false);
   const [showHeroLogo, setShowHeroLogo] = useState(true);
@@ -39,7 +45,9 @@ export const HeroNavbar = ({ contentRef }: HeroNavbarProps) => {
   return (
     <>
       {/* Conditionally render the navbar based on scroll position */}
-      {showNavbar && <BaseNavbar />}
+      {showNavbar && (
+        <BaseNavbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      )}
 
       {/* Hero Section */}
       <div ref={containerRef} className="relative h-[200vh]">
