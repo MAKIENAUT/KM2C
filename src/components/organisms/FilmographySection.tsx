@@ -14,17 +14,17 @@ import {
   Wifi,
 } from "lucide-react";
 
-interface PhotoMetadata {
-  aperture: string;
-  iso: string;
-  shutterSpeed: string;
-  focalLength: string;
-  fileSize: string;
-  exposureComp: string;
-  shootingMode: string;
-  whiteBalance: string;
-  fileFormat: string;
-}
+// interface PhotoMetadata {
+//   aperture: string;
+//   iso: string;
+//   shutterSpeed: string;
+//   focalLength: string;
+//   fileSize: string;
+//   exposureComp: string;
+//   shootingMode: string;
+//   whiteBalance: string;
+//   fileFormat: string;
+// }
 
 // interface Photo {
 //   id: number;
