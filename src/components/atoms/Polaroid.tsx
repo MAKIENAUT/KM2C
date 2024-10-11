@@ -8,7 +8,7 @@ const PolaroidVariants = cva("bg-white p-4 shadow-xl", {
   variants: {
     variant: {
       default: "absolute",
-      about: "sticky top-[calc(var(--nav-height)+32px)] h-fit",
+      about: "relative sm:sticky sm:top-[calc(var(--nav-height)+32px)] h-fit",
     },
   },
   defaultVariants: {
