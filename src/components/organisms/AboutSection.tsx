@@ -9,7 +9,7 @@ export default function AboutSection() {
   useNavbarHeightGetter();
 
   return (
-    <main className="relative mx-auto grid h-[calc(100vh-var(--nav-height))] max-w-7xl grid-cols-[25%_auto] gap-8 px-4 py-12 text-white">
+    <main className="relative mx-auto mt-[var(--nav-height)] grid min-h-[calc(100vh-var(--nav-height))] max-w-7xl grid-cols-[25%_auto] gap-8 px-4 py-12 text-white">
       <Polaroid
         variant="about"
         image="/Kirsten.jpeg"
