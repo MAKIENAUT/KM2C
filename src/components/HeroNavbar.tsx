@@ -78,7 +78,7 @@ export const HeroNavbar = ({
                   className="text-center"
                 >
                   <motion.div
-                    className="mx-auto w-[600px]"
+                    className="mx-auto w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -101,14 +101,14 @@ export const HeroNavbar = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: showHeroLogo ? 1 : 0 }}
               transition={{ duration: 0.4 }}
-              className="absolute bottom-12 left-1/2 flex -translate-x-1/2 flex-col items-center"
+              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center sm:bottom-10 md:bottom-12"
             >
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="text-white/80"
               >
-                <ChevronDown className="h-8 w-8" />
+                <ChevronDown className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
               </motion.div>
             </motion.div>
           </motion.div>
