@@ -43,7 +43,7 @@ const Polaroid = ({
   color = "",
 }: PolaroidProps) => (
   <motion.div
-    className={`absolute bg-white p-4 shadow-xl cursor-${cursor} ${className}`}
+    className={`absolute bg-white p-2 shadow-xl sm:p-3 md:p-4 cursor-${cursor} ${className}`}
     initial={false}
   >
     <div className={`relative aspect-[4/5] cursor-${cursor}`}>
@@ -56,18 +56,18 @@ const Polaroid = ({
       />
     </div>
     <div
-      className={`font-handwriting mt-4 text-left cursor-${cursor} ${color}`}
+      className={`font-handwriting mt-2 text-left text-xs sm:mt-3 sm:text-sm md:mt-4 cursor-${cursor} ${color}`}
     >
       {caption}
     </div>
-    <div className="absolute -top-4 left-1/2 h-8 w-6 -translate-x-1/2 bg-zinc-300" />
+    <div className="absolute -top-2 left-1/2 h-4 w-3 -translate-x-1/2 bg-zinc-300 sm:-top-3 sm:h-6 sm:w-4 md:-top-4 md:h-8 md:w-6" />
   </motion.div>
 );
 
 const PolaroidStack = () => {
   return (
     <motion.div
-      className="group relative h-[500px] w-80"
+      className="group relative h-[250px] w-40 sm:h-[300px] sm:w-48 md:h-[400px] md:w-64 lg:h-[500px] lg:w-80"
       whileHover="hover"
       initial="initial"
       animate="initial"
@@ -156,7 +156,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
     return (
       <section
         ref={ref}
-        className="relative h-screen cursor-default bg-black pt-20"
+        className="relative h-screen cursor-default bg-black pt-6 sm:pt-10 md:pt-16 lg:pt-20"
       >
         <div
           ref={containerRef}
@@ -166,18 +166,18 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
               : "opacity-100"
           }`}
         >
-          <div className="max-w-7xl px-4 py-16">
+          <div className="max-w-7xl px-4 py-6 sm:py-8 md:py-12 lg:py-16">
             {/* Header Section with Profile */}
             <motion.div
               style={{ y: profileY }}
-              className="mb-16 flex justify-center"
+              className="mb-6 flex flex-col items-center justify-center sm:mb-8 sm:flex-row md:mb-12 lg:mb-16"
             >
-              <div className="flex items-center gap-16">
+              <div className="flex flex-col items-center gap-6 sm:flex-row sm:gap-8 md:gap-12 lg:gap-16">
                 <PolaroidStack />
 
-                {/* Name and Contact Info - Keep existing code */}
+                {/* Name and Contact Info */}
                 <motion.div
-                  className="group flex-col justify-center"
+                  className="group mt-6 flex-col justify-center sm:mt-0"
                   whileHover="hover"
                   initial="initial"
                   animate="initial"
@@ -198,16 +198,16 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                       },
                     }}
                   >
-                    <h2 className="text-5xl font-bold text-cream md:text-7xl">
+                    <h2 className="text-center text-2xl font-bold text-cream sm:text-left sm:text-3xl md:text-5xl lg:text-7xl">
                       KIRSTEN
                     </h2>
-                    <h2 className="text-5xl font-bold text-cream md:text-7xl">
+                    <h2 className="text-center text-2xl font-bold text-cream sm:text-left sm:text-3xl md:text-5xl lg:text-7xl">
                       CERALDE
                     </h2>
                   </motion.div>
 
                   <motion.div
-                    className="mt-6 flex flex-col gap-4 text-gray-300"
+                    className="mt-3 flex flex-col gap-2 text-gray-300 sm:mt-4 sm:gap-3 md:mt-5 md:gap-4 lg:mt-6"
                     variants={{
                       initial: {
                         opacity: 0,
@@ -217,7 +217,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                       hover: {
                         opacity: 1,
                         height: "auto",
-                        marginTop: 24,
+                        marginTop: 16,
                         transition: {
                           duration: 0.3,
                           ease: "easeOut",
@@ -229,7 +229,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                     {contactInfo.map((info, index) => (
                       <motion.div
                         key={index}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 text-xs sm:text-sm md:text-base"
                         variants={{
                           initial: {
                             opacity: 0,
@@ -245,7 +245,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
                           },
                         }}
                       >
-                        <info.icon className="text-red-500" size={18} />
+                        <info.icon className="text-red-500" size={16} />
                         <span>{info.text}</span>
                       </motion.div>
                     ))}
@@ -255,19 +255,19 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
             </motion.div>
 
             {/* Main Content */}
-            <div className="space-y-24">
+            <div className="space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-24">
               {/* Bio Section */}
               <motion.div
                 style={{ y: bioY }}
-                className="relative mx-auto max-w-4xl rounded-2xl bg-gray-900 p-8 shadow-lg"
+                className="relative mx-auto max-w-4xl rounded-2xl bg-gray-900 p-3 shadow-lg sm:p-4 md:p-6 lg:p-8"
               >
-                <div className="absolute -left-4 -top-4 rounded-full bg-orange-900/50 p-4">
-                  <Camera className="h-8 w-8 text-red-500" />
+                <div className="absolute -left-2 -top-2 rounded-full bg-orange-900/50 p-1 sm:-left-3 sm:-top-3 sm:p-2 md:-left-4 md:-top-4 md:p-3 lg:p-4">
+                  <Camera className="h-4 w-4 text-red-500 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-8 lg:w-8" />
                 </div>
-                <h3 className="mb-4 text-2xl font-semibold text-cream">
+                <h3 className="mb-2 text-lg font-semibold text-cream sm:mb-3 sm:text-xl md:mb-4 md:text-2xl">
                   About Me
                 </h3>
-                <p className="leading-relaxed text-gray-300">
+                <p className="text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
                   A filmmaker based in Paris, France, with a dual degree in Film
                   Art from studies across Paris, the Netherlands, and Boston.
                   Through the Global Bachelors of Film Art (GBFA) program,
@@ -279,8 +279,8 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-0 top-0 h-32 w-full bg-gradient-to-b from-black/50 to-transparent" />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 h-12 w-full bg-gradient-to-b from-black/50 to-transparent sm:h-16 md:h-24 lg:h-32" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-12 w-full bg-gradient-to-t from-black/50 to-transparent sm:h-16 md:h-24 lg:h-32" />
       </section>
     );
   }
