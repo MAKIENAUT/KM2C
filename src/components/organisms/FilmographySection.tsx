@@ -26,14 +26,14 @@ interface PhotoMetadata {
   fileFormat: string;
 }
 
-interface Photo {
-  id: number;
-  title: string;
-  duration: string;
-  date: string;
-  thumbnail: string;
-  metadata: PhotoMetadata;
-}
+// interface Photo {
+//   id: number;
+//   title: string;
+//   duration: string;
+//   date: string;
+//   thumbnail: string;
+//   metadata: PhotoMetadata;
+// }
 
 // Mock data for photos with DSLR-specific metadata
 const photos = [
