@@ -40,7 +40,7 @@ export default function DynamicImagePage({
       : PHOTO_VALUES[currentFolder].imgs[currentIndex + 1];
 
   return (
-    <section className="width-full relative box-border flex h-dvh items-center justify-center bg-black">
+    <section className="width-full relative box-border flex min-h-screen items-center justify-center bg-black">
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${prevPhoto?.imgSlug}`}
         className="group absolute left-4 p-2 transition-colors hover:bg-red-600"
@@ -116,7 +116,7 @@ export default function DynamicImagePage({
       {/* Back button */}
       <button
         onClick={() => router.push("/photography")} // Navigate to the photography page
-        className="absolute right-4 top-24 rounded bg-gray-800 px-4 py-2 text-white transition hover:bg-gray-600"
+        className="absolute right-32 top-24 text-white hover:text-chili-red"
       >
         Back to Photography
       </button>
