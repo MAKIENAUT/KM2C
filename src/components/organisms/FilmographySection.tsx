@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Camera, Grid, Battery, Wifi } from "lucide-react";
 import { galleryItems } from "@/data/FilmographyData";
 import {
@@ -14,7 +14,6 @@ const VideoGallerySection: React.FC = () => {
   const [isGridView, setIsGridView] = useState<boolean>(true);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  // const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentGalleryItem =
     selectedItem !== null
