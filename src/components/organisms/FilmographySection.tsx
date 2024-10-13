@@ -1,247 +1,188 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { Camera, Grid, Battery, Wifi } from "lucide-react";
+import { galleryItems } from "@/data/FilmographyData";
 import {
-  Camera,
-  Grid,
-  // Film,
-  Battery,
-  // Clock,
-  // Calendar,
-  // Aperture,
-  // Settings,
-  // Info,
-  Wifi,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+  SlideshowItem,
+  VideoItem,
+  GalleryItem,
+} from "@/types/Filmography_Types";
 
-// interface PhotoMetadata {
-//   aperture: string;
-//   iso: string;
-//   shutterSpeed: string;
-//   focalLength: string;
-//   fileSize: string;
-//   exposureComp: string;
-//   shootingMode: string;
-//   whiteBalance: string;
-//   fileFormat: string;
-// }
-
-// interface Photo {
-//   id: number;
-//   title: string;
-//   duration: string;
-//   date: string;
-//   thumbnail: string;
-//   metadata: PhotoMetadata;
-// }
-
-// Mock data for photos with DSLR-specific metadata
-const photos = [
-  {
-    id: 1,
-    title: "Mountain Sunrise",
-    duration: "02:34",
-    date: "2024-03-15",
-    thumbnail: "/portraits/Junior.jpg",
-    metadata: {
-      aperture: "f/2.8",
-      iso: "100",
-      shutterSpeed: "1/1000",
-      focalLength: "24mm",
-      fileSize: "40.7MB",
-      exposureComp: "0 EV",
-      shootingMode: "P",
-      whiteBalance: "AUTO",
-      fileFormat: "RAW+JPEG",
-    },
-  },
-  {
-    id: 2,
-    title: "City Lights",
-    duration: "03:45",
-    date: "2024-03-14",
-    thumbnail: "/i-went-home/8-Biking with my brother.jpg",
-    metadata: {
-      aperture: "f/1.8",
-      iso: "800",
-      shutterSpeed: "1/60",
-      focalLength: "50mm",
-      fileSize: "42.1MB",
-      exposureComp: "-0.3 EV",
-      shootingMode: "A",
-      whiteBalance: "5500K",
-      fileFormat: "RAW+JPEG",
-    },
-  },
-  {
-    id: 3,
-    title: "Ocean Waves",
-    duration: "01:56",
-    date: "2024-03-13",
-    thumbnail: "/i-went-home/18-I went to the DMV .jpg",
-    metadata: {
-      aperture: "f/8",
-      iso: "200",
-      shutterSpeed: "1/250",
-      focalLength: "70mm",
-      fileSize: "39.8MB",
-      exposureComp: "+0.3 EV",
-      shootingMode: "M",
-      whiteBalance: "CLOUD",
-      fileFormat: "RAW+JPEG",
-    },
-  },
-  {
-    id: 4,
-    title: "Forest Walk",
-    duration: "04:12",
-    date: "2024-03-12",
-    thumbnail: "/Kirsten.jpeg",
-    metadata: {
-      aperture: "f/4",
-      iso: "400",
-      shutterSpeed: "1/500",
-      focalLength: "35mm",
-      fileSize: "41.2MB",
-      exposureComp: "0 EV",
-      shootingMode: "S",
-      whiteBalance: "AUTO",
-      fileFormat: "RAW+JPEG",
-    },
-  },
-];
-
-const DSLRGallerySection: React.FC = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
+const VideoGallerySection: React.FC = () => {
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [isGridView, setIsGridView] = useState<boolean>(true);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+
+  const currentGalleryItem =
+    selectedItem !== null
+      ? galleryItems.find((item) => item.id === selectedItem)
+      : null;
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    let slideInterval: NodeJS.Timeout;
+    if (currentGalleryItem?.type === "Slideshow") {
+      slideInterval = setInterval(() => {
+        changeSlide(
+          (currentSlide + 1) %
+            (currentGalleryItem as SlideshowItem).images.length
+        );
+      }, 5000); // Change slide every 5 seconds
+    }
+    return () => clearInterval(slideInterval);
+  }, [currentGalleryItem, currentSlide]);
 
-  const currentPhoto =
-    selectedPhoto !== null ? photos.find((p) => p.id === selectedPhoto) : null;
-
-  const formatDateTime = (date: Date): string => {
-    return date
-      .toLocaleString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      })
-      .replace(",", "");
+  const changeSlide = (newSlide: number) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(newSlide);
+      setIsTransitioning(false);
+    }, 300); // Match this with the transition duration in CSS
   };
 
-  const generateHistogram = (): JSX.Element => (
-    <svg className="h-full w-full" viewBox="0 0 100 40">
-      <path
-        d="M0 40 L5 35 L10 38 L15 30 L20 25 L25 35 L30 20 L35 15 L40 25 L45 30 L50 35 L55 25 L60 20 L65 15 L70 25 L75 30 L80 35 L85 25 L90 20 L95 35 L100 40 Z"
-        fill="rgba(255, 255, 255, 0.5)"
-        stroke="white"
-        strokeWidth="0.5"
-      />
-    </svg>
-  );
+  const ViewfinderScreen: React.FC = () => {
+    if (!currentGalleryItem) return null;
 
-  const ViewfinderScreen: React.FC = () => (
-    <div className="relative min-h-screen w-full bg-black pt-4 font-mono sm:pt-8 md:pt-16">
-      <div className="flex h-full flex-col md:flex-row">
-        {/* Left metrics panel */}
-        <div className="w-full border-b border-gray-800 p-2 text-white md:w-16 md:border-r">
-          <div className="flex justify-between text-xs md:flex-col md:justify-start md:space-y-4">
-            <div>{currentPhoto?.metadata.shootingMode}-★</div>
-            <div>ISO</div>
-            <div>{currentPhoto?.metadata.whiteBalance}</div>
-            <div>8 FPS</div>
-          </div>
-        </div>
-
-        {/* Main image area */}
-        <div className="relative flex-1 p-2 sm:p-4">
-          {/* Top info bar */}
-          <div className="mb-2 flex justify-between text-xs text-white">
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <span>
-                {currentPhoto
-                  ? `${photos.indexOf(currentPhoto) + 1}/${photos.length}`
-                  : "0/0"}
-              </span>
-              <Battery className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span>100%</span>
-              <Wifi className="h-3 w-3 sm:h-4 sm:w-4" />
+    return (
+      <div className="relative h-screen w-full bg-black pt-20 font-mono">
+        <div className="flex h-full">
+          {/* Main content area */}
+          <div className="relative flex-1 p-4">
+            {/* Top info bar */}
+            <div className="mb-2 flex justify-between text-xs text-white">
+              <div className="flex items-center space-x-4">
+                <span>{`${galleryItems.indexOf(currentGalleryItem) + 1}/${galleryItems.length}`}</span>
+                <Battery className="h-4 w-4" />
+                <span>100%</span>
+                <Wifi className="h-4 w-4" />
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>2024-10-12 15:30:00</span>
+                <span>100-0118</span>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="hidden sm:inline">
-                {formatDateTime(currentTime)}
-              </span>
-              <span>100-0118</span>
-            </div>
-          </div>
 
-          {/* Main image with overlays */}
-          <div className="relative h-64 w-full sm:h-96 md:h-[calc(100vh-16rem)]">
-            <img
-              src={currentPhoto?.thumbnail}
-              alt={currentPhoto?.title}
-              className="h-full w-full border border-gray-800 object-cover"
-            />
-
-            {/* Focus point overlay */}
-            <div className="absolute inset-0 grid grid-cols-5 grid-rows-5 opacity-50">
-              {Array(25)
-                .fill(null)
-                .map((_, i) => (
-                  <div key={i} className="flex items-center justify-center">
-                    <div className="h-1 w-1 border border-white"></div>
+            {/* Content display */}
+            <div className="relative flex h-5/6 w-full justify-center overflow-hidden rounded-md border border-gray-800">
+              {currentGalleryItem.type === "Video" ? (
+                <>
+                  {/* <YouTube
+                    videoId={(currentGalleryItem as VideoItem).videoSrc}
+                    // opts={opts}
+                    // onReady={this._onReady}
+                    className="aspect-video w-full self-stretch md:min-h-96"
+                  /> */}
+                  <iframe
+                    src={(currentGalleryItem as VideoItem).videoSrc}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="aspect-video w-full self-stretch md:min-h-96"
+                  />
+                  {/* Complementary shots */}
+                  <div className="absolute left-4 top-24 flex-col space-y-2">
+                    {(currentGalleryItem as VideoItem).complementaryShots.map(
+                      (shot, index) => (
+                        <div
+                          key={index}
+                          className="h-20 w-20 border border-gray-800"
+                          style={{
+                            backgroundImage: `url(${shot})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                          }}
+                        />
+                      )
+                    )}
                   </div>
-                ))}
+                </>
+              ) : (
+                <div className="relative h-full w-full rounded-md border border-gray-800">
+                  <div
+                    className={`absolute inset-0 bg-contain bg-center bg-no-repeat bg-origin-content transition-opacity duration-300 ${isTransitioning ? "opacity-0" : "opacity-100"}`}
+                    style={{
+                      backgroundImage: `url(${(currentGalleryItem as SlideshowItem).images[currentSlide]})`,
+                    }}
+                  />
+                  {/* Preview of previous and next slides */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between">
+                    <div
+                      className="h-20 w-20 cursor-pointer border border-gray-800 bg-cover bg-center opacity-50 transition-all hover:opacity-100"
+                      style={{
+                        backgroundImage: `url(${(currentGalleryItem as SlideshowItem).images[(currentSlide - 1 + (currentGalleryItem as SlideshowItem).images.length) % (currentGalleryItem as SlideshowItem).images.length]})`,
+                      }}
+                      onClick={() =>
+                        changeSlide(
+                          (currentSlide -
+                            1 +
+                            (currentGalleryItem as SlideshowItem).images
+                              .length) %
+                            (currentGalleryItem as SlideshowItem).images.length
+                        )
+                      }
+                    />
+                    <div
+                      className="h-20 w-20 cursor-pointer border border-gray-800 bg-cover bg-center opacity-50 transition-all hover:opacity-100"
+                      style={{
+                        backgroundImage: `url(${(currentGalleryItem as SlideshowItem).images[(currentSlide + 1) % (currentGalleryItem as SlideshowItem).images.length]})`,
+                      }}
+                      onClick={() =>
+                        changeSlide(
+                          (currentSlide + 1) %
+                            (currentGalleryItem as SlideshowItem).images.length
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Bottom metrics bar */}
-          <div className="mt-2 flex flex-wrap justify-between text-xs text-white">
-            <div className="flex flex-wrap space-x-2 sm:space-x-4">
-              <span>{currentPhoto?.metadata.aperture}</span>
-              <span>{currentPhoto?.metadata.shutterSpeed}</span>
-              <span>ISO {currentPhoto?.metadata.iso}</span>
-              <span>{currentPhoto?.metadata.exposureComp}</span>
-            </div>
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <span>{currentPhoto?.metadata.focalLength}</span>
-              <span>{currentPhoto?.metadata.fileSize}</span>
+          {/* Right panel with description */}
+          <div className="w-96 overflow-y-auto border-l border-gray-800 p-4 text-white">
+            <h2 className="mb-4 text-2xl font-bold">
+              {currentGalleryItem.information.title}
+            </h2>
+            <div className="space-y-4 text-sm">
+              <div>
+                <strong>Year:</strong> {currentGalleryItem.information.year}
+              </div>
+              <div>
+                <strong>Total running time:</strong>{" "}
+                {currentGalleryItem.information.totalRunningTime}
+              </div>
+              <div>
+                <strong>Type:</strong> {currentGalleryItem.information.type}
+              </div>
+              <div>
+                <strong>Role:</strong> {currentGalleryItem.information.role}
+              </div>
+              <div>
+                <strong>Synopsis:</strong>
+                <p className="mt-2">
+                  {currentGalleryItem.information.synopsis}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Right panel with histogram */}
-        <div className="w-full border-t border-gray-800 p-2 md:w-32 md:border-l">
-          <div className="h-32 w-full">{generateHistogram()}</div>
-        </div>
-      </div>
-
-      {/* Bottom control bar */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-between border-t border-gray-800 bg-black bg-opacity-75 p-2 text-xs text-white">
-        <button
-          onClick={() => setSelectedPhoto(null)}
-          className="rounded border border-gray-600 px-3 py-1 hover:bg-gray-800"
-        >
-          Back
-        </button>
-        <div className="flex space-x-4">
-          <span>{currentPhoto?.metadata.fileFormat}</span>
+        {/* Bottom control bar */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-between border-t border-gray-800 bg-black bg-opacity-75 p-2 text-xs text-white">
+          <button
+            onClick={() => setSelectedItem(null)}
+            className="rounded border border-gray-600 px-3 py-1 hover:bg-gray-800"
+          >
+            Back
+          </button>
           <span>CARD 1</span>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const GalleryScreen: React.FC = () => (
     <div className="min-h-screen bg-black p-2 text-white sm:p-4">
@@ -249,10 +190,10 @@ const DSLRGallerySection: React.FC = () => {
       <div className="mb-4 flex flex-col items-start justify-between border-b border-gray-800 pb-4 sm:mb-6 sm:flex-row sm:items-center">
         <h1 className="mb-2 flex items-center font-mono text-xl sm:mb-0 sm:text-2xl">
           <Camera className="mr-2" />
-          DSLR Gallery
+          Gallery
         </h1>
         <div className="flex items-center space-x-4">
-          <span className="text-sm">{photos.length} Images</span>
+          <span className="text-sm">{galleryItems.length} Items</span>
           <button
             onClick={() => setIsGridView(!isGridView)}
             className="rounded border border-gray-600 p-2 hover:bg-gray-800"
@@ -266,29 +207,35 @@ const DSLRGallerySection: React.FC = () => {
       <div
         className={`grid ${
           isGridView
-            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
             : "grid-cols-1"
         } gap-4 sm:gap-6`}
       >
-        {photos.map((photo) => (
+        {galleryItems.map((item: GalleryItem) => (
           <div
-            key={photo.id}
-            onClick={() => setSelectedPhoto(photo.id)}
+            key={item.id}
+            onClick={() => setSelectedItem(item.id)}
             className="group relative cursor-pointer"
           >
             <img
-              src={photo.thumbnail}
-              alt={photo.title}
+              src={
+                item.type === "Video"
+                  ? (item as VideoItem).thumbnail
+                  : (item as SlideshowItem).images[0]
+              }
+              alt={item.title}
               className="aspect-video w-full border border-gray-800 object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 p-2 font-mono opacity-0 transition-opacity group-hover:opacity-100">
               <div className="flex justify-between text-xs">
-                <span>{photo.title}</span>
-                <span>{photo.metadata.aperture}</span>
+                <span>{item.title}</span>
+                {item.type === "Video" && (
+                  <span>{(item as VideoItem).duration}</span>
+                )}
               </div>
               <div className="mt-1 flex justify-between text-xs text-gray-400">
-                <span>ISO {photo.metadata.iso}</span>
-                <span>{photo.metadata.focalLength}</span>
+                <span>{item.date}</span>
+                <span>{item.type}</span>
               </div>
             </div>
           </div>
@@ -299,9 +246,9 @@ const DSLRGallerySection: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full">
-      {selectedPhoto ? <ViewfinderScreen /> : <GalleryScreen />}
+      {selectedItem ? <ViewfinderScreen /> : <GalleryScreen />}
     </div>
   );
 };
 
-export default DSLRGallerySection;
+export default VideoGallerySection;
