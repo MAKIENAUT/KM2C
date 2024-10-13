@@ -8,14 +8,13 @@ import {
   VideoItem,
   GalleryItem,
 } from "@/types/Filmography_Types";
-import YouTube from "react-youtube";
 
 const VideoGallerySection: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [isGridView, setIsGridView] = useState<boolean>(true);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // const videoRef = useRef<HTMLVideoElement>(null);
 
   const currentGalleryItem =
     selectedItem !== null
