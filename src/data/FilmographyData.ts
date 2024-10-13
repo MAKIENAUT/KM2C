@@ -11,7 +11,7 @@ export const galleryItems: GalleryItem[] = [
     date: "2021",
     type: "Video",
     thumbnail: "/Filmography/35mm_in_Boston/shot_1.png",
-    videoSrc: "/Filmography/35mm_in_Boston/Final_Following_the_Sky.mp4",
+    videoSrc: "https://www.youtube.com/embed/_dZ_Df-pdWg?si=cSzwpHO66a1c_jPy",
     duration: "25:00",
     role: "Director, Cinematographer",
     synopsis: "A visual journey through Boston captured on 35mm film.",

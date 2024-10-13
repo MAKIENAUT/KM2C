@@ -8,6 +8,7 @@ import {
   VideoItem,
   GalleryItem,
 } from "@/types/Filmography_Types";
+import YouTube from "react-youtube";
 
 const VideoGallerySection: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
@@ -68,14 +69,22 @@ const VideoGallerySection: React.FC = () => {
             <div className="relative flex h-5/6 w-full justify-center overflow-hidden rounded-md border border-gray-800">
               {currentGalleryItem.type === "Video" ? (
                 <>
-                  <video
-                    ref={videoRef}
+                  {/* <YouTube
+                    videoId={(currentGalleryItem as VideoItem).videoSrc}
+                    // opts={opts}
+                    // onReady={this._onReady}
+                    className="aspect-video w-full self-stretch md:min-h-96"
+                  /> */}
+                  <iframe
                     src={(currentGalleryItem as VideoItem).videoSrc}
-                    className="h-full w-full object-contain"
-                    controls
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="aspect-video w-full self-stretch md:min-h-96"
                   />
                   {/* Complementary shots */}
-                  <div className="absolute left-4 top-4 flex-col space-y-2">
+                  <div className="absolute left-4 top-24 flex-col space-y-2">
                     {(currentGalleryItem as VideoItem).complementaryShots.map(
                       (shot, index) => (
                         <div
