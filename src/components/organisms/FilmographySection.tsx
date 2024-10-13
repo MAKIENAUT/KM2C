@@ -178,10 +178,10 @@ const VideoGallerySection: React.FC = () => {
   };
 
   const GalleryScreen: React.FC = () => (
-    <div className="min-h-screen bg-black p-4 text-white">
+    <div className="min-h-screen bg-black p-2 text-white sm:p-4">
       {/* Gallery Header */}
-      <div className="mb-6 flex items-center justify-between border-b border-gray-800 pb-4">
-        <h1 className="flex items-center font-mono text-2xl">
+      <div className="mb-4 flex flex-col items-start justify-between border-b border-gray-800 pb-4 sm:mb-6 sm:flex-row sm:items-center">
+        <h1 className="mb-2 flex items-center font-mono text-xl sm:mb-0 sm:text-2xl">
           <Camera className="mr-2" />
           Gallery
         </h1>
@@ -198,7 +198,11 @@ const VideoGallerySection: React.FC = () => {
 
       {/* Gallery Grid */}
       <div
-        className={`grid ${isGridView ? "grid-cols-3" : "grid-cols-1"} gap-6`}
+        className={`grid ${
+          isGridView
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            : "grid-cols-1"
+        } gap-4 sm:gap-6`}
       >
         {galleryItems.map((item: GalleryItem) => (
           <div
