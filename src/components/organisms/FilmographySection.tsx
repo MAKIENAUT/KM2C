@@ -12,6 +12,8 @@ import {
   // Settings,
   // Info,
   Wifi,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 // interface PhotoMetadata {
@@ -150,11 +152,11 @@ const DSLRGallerySection: React.FC = () => {
   );
 
   const ViewfinderScreen: React.FC = () => (
-    <div className="relative h-screen w-full bg-black pt-20 font-mono">
-      <div className="flex h-full">
+    <div className="relative min-h-screen w-full bg-black pt-4 font-mono sm:pt-8 md:pt-16">
+      <div className="flex h-full flex-col md:flex-row">
         {/* Left metrics panel */}
-        <div className="w-16 border-r border-gray-800 p-2 text-white">
-          <div className="space-y-4 text-xs">
+        <div className="w-full border-b border-gray-800 p-2 text-white md:w-16 md:border-r">
+          <div className="flex justify-between text-xs md:flex-col md:justify-start md:space-y-4">
             <div>{currentPhoto?.metadata.shootingMode}-★</div>
             <div>ISO</div>
             <div>{currentPhoto?.metadata.whiteBalance}</div>
@@ -163,27 +165,29 @@ const DSLRGallerySection: React.FC = () => {
         </div>
 
         {/* Main image area */}
-        <div className="relative flex-1 p-4">
+        <div className="relative flex-1 p-2 sm:p-4">
           {/* Top info bar */}
           <div className="mb-2 flex justify-between text-xs text-white">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <span>
                 {currentPhoto
                   ? `${photos.indexOf(currentPhoto) + 1}/${photos.length}`
                   : "0/0"}
               </span>
-              <Battery className="h-4 w-4" />
+              <Battery className="h-3 w-3 sm:h-4 sm:w-4" />
               <span>100%</span>
-              <Wifi className="h-4 w-4" />
+              <Wifi className="h-3 w-3 sm:h-4 sm:w-4" />
             </div>
             <div className="flex items-center space-x-2">
-              <span>{formatDateTime(currentTime)}</span>
+              <span className="hidden sm:inline">
+                {formatDateTime(currentTime)}
+              </span>
               <span>100-0118</span>
             </div>
           </div>
 
           {/* Main image with overlays */}
-          <div className="relative h-5/6 w-full">
+          <div className="relative h-64 w-full sm:h-96 md:h-[calc(100vh-16rem)]">
             <img
               src={currentPhoto?.thumbnail}
               alt={currentPhoto?.title}
@@ -203,14 +207,14 @@ const DSLRGallerySection: React.FC = () => {
           </div>
 
           {/* Bottom metrics bar */}
-          <div className="mt-2 flex justify-between text-xs text-white">
-            <div className="flex space-x-4">
+          <div className="mt-2 flex flex-wrap justify-between text-xs text-white">
+            <div className="flex flex-wrap space-x-2 sm:space-x-4">
               <span>{currentPhoto?.metadata.aperture}</span>
               <span>{currentPhoto?.metadata.shutterSpeed}</span>
               <span>ISO {currentPhoto?.metadata.iso}</span>
               <span>{currentPhoto?.metadata.exposureComp}</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <span>{currentPhoto?.metadata.focalLength}</span>
               <span>{currentPhoto?.metadata.fileSize}</span>
             </div>
@@ -218,7 +222,7 @@ const DSLRGallerySection: React.FC = () => {
         </div>
 
         {/* Right panel with histogram */}
-        <div className="w-32 border-l border-gray-800 p-2">
+        <div className="w-full border-t border-gray-800 p-2 md:w-32 md:border-l">
           <div className="h-32 w-full">{generateHistogram()}</div>
         </div>
       </div>
@@ -240,10 +244,10 @@ const DSLRGallerySection: React.FC = () => {
   );
 
   const GalleryScreen: React.FC = () => (
-    <div className="min-h-screen bg-black p-4 text-white">
+    <div className="min-h-screen bg-black p-2 text-white sm:p-4">
       {/* Gallery Header */}
-      <div className="mb-6 flex items-center justify-between border-b border-gray-800 pb-4">
-        <h1 className="flex items-center font-mono text-2xl">
+      <div className="mb-4 flex flex-col items-start justify-between border-b border-gray-800 pb-4 sm:mb-6 sm:flex-row sm:items-center">
+        <h1 className="mb-2 flex items-center font-mono text-xl sm:mb-0 sm:text-2xl">
           <Camera className="mr-2" />
           DSLR Gallery
         </h1>
@@ -260,7 +264,11 @@ const DSLRGallerySection: React.FC = () => {
 
       {/* Gallery Grid */}
       <div
-        className={`grid ${isGridView ? "grid-cols-3" : "grid-cols-1"} gap-6`}
+        className={`grid ${
+          isGridView
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            : "grid-cols-1"
+        } gap-4 sm:gap-6`}
       >
         {photos.map((photo) => (
           <div
