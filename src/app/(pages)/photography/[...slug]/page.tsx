@@ -5,8 +5,8 @@ import useNavbarHeightGetter from "@/hooks/useNavbarHeightGetter";
 import { PHOTO_VALUES } from "@/lib/values";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter hook
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DynamicImagePage({
   params,
@@ -14,8 +14,16 @@ export default function DynamicImagePage({
   params: { slug: string };
 }) {
   const [imageLoading, setImageLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   useNavbarHeightGetter();
-  const router = useRouter(); // Initialize the useRouter hook
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const currentFolder = PHOTO_VALUES.findIndex((photos) =>
     photos.folderSlug.includes(params.slug[0])
@@ -40,21 +48,21 @@ export default function DynamicImagePage({
       : PHOTO_VALUES[currentFolder].imgs[currentIndex + 1];
 
   return (
-    <section className="width-full relative box-border flex min-h-screen items-center justify-center bg-black">
+    <section className="width-full relative box-border flex min-h-screen items-center justify-center bg-black px-4 py-8 md:px-8">
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${prevPhoto?.imgSlug}`}
-        className="group absolute left-4 p-2 transition-colors hover:bg-red-600"
+        className="group absolute left-2 z-10 p-2 transition-colors hover:bg-red-600 md:left-4"
       >
         <Image
           alt="left arrow icon"
           src="/left-arrow-icon.svg"
           width={0}
           height={0}
-          className="w-8 invert group-hover:brightness-100"
+          className="w-6 invert group-hover:brightness-100 md:w-8"
         />
       </Link>
-      <div className="grid w-full max-w-7xl grid-cols-[35%_auto] items-center gap-8">
-        <div className="group relative w-[400px] rotate-[-2deg] transition-transform duration-300 hover:rotate-0">
+      <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-4 md:grid-cols-[35%_auto] md:gap-8">
+        <div className="group relative mx-auto w-full rotate-[-2deg] transition-transform duration-300 hover:rotate-0 md:mx-0 md:w-[400px]">
           {/* Polaroid frame */}
           <div className="relative aspect-[0.85] w-full rounded-sm bg-white p-4 shadow-[0_10px_20px_rgba(0,0,0,0.3)]">
             {/* Image container with development effect */}
@@ -68,7 +76,7 @@ export default function DynamicImagePage({
                 }`}
                 src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo?.imgSrc}`}
                 fill
-                sizes="(max-width: 400px) 100vw, 400px"
+                sizes="(max-width: 768px) 100vw, 400px"
                 loading="lazy"
                 onLoadingComplete={() => setImageLoading(false)}
                 priority={false}
@@ -83,7 +91,7 @@ export default function DynamicImagePage({
 
             {/* Polaroid bottom area with caption */}
             <div className="absolute bottom-4 left-4 right-4 flex h-12 items-center justify-center">
-              <p className="font-handwriting text-center text-sm text-gray-600">
+              <p className="font-handwriting text-center text-xs text-gray-600 md:text-sm">
                 {photo?.imgTitle}
               </p>
             </div>
@@ -94,29 +102,33 @@ export default function DynamicImagePage({
           <div className="rotate-4 absolute -bottom-4 -right-4 -z-20 h-full w-full rounded-sm bg-white shadow-md" />
         </div>
 
-        <div className="flex flex-col gap-4 text-cream">
-          <h1 className={`${vt323.className} text-8xl`}>{photo?.imgTitle}</h1>
-          <p className="opacity-90">{photo?.imgDescription}</p>
+        <div className="mt-8 flex flex-col gap-4 text-cream md:mt-0">
+          <h1 className={`${vt323.className} text-4xl sm:text-6xl md:text-8xl`}>
+            {photo?.imgTitle}
+          </h1>
+          <p className="text-sm opacity-90 md:text-base">
+            {photo?.imgDescription}
+          </p>
         </div>
       </div>
 
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${nextPhoto?.imgSlug}`}
-        className="group absolute right-4 p-2 transition-colors hover:bg-red-600"
+        className="group absolute right-2 z-10 p-2 transition-colors hover:bg-red-600 md:right-4"
       >
         <Image
           alt="right arrow icon"
           src="/right-arrow-icon.svg"
           width={0}
           height={0}
-          className="w-8 invert group-hover:brightness-100"
+          className="w-6 invert group-hover:brightness-100 md:w-8"
         />
       </Link>
 
       {/* Back button */}
       <button
-        onClick={() => router.push("/photography")} // Navigate to the photography page
-        className="absolute right-32 top-24 text-white hover:text-chili-red"
+        onClick={() => router.push("/photography")}
+        className="absolute right-4 top-4 text-sm text-white hover:text-chili-red md:right-8 md:top-8 md:text-base"
       >
         Back to Photography
       </button>
