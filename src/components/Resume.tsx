@@ -23,11 +23,7 @@ const contactInfo = [
     text: "Kmmceralde@gmail.com",
     delay: 0,
   },
-  {
-    icon: Phone,
-    text: "US +1(312-394-9188) | FR +33(0625059385)",
-    delay: 0.1,
-  },
+
   {
     icon: Languages,
     text: "English, Tagalog",
@@ -257,24 +253,6 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
             {/* Main Content */}
             <div className="space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-24">
               {/* Bio Section */}
-              <motion.div
-                style={{ y: bioY }}
-                className="relative mx-auto max-w-4xl rounded-2xl bg-gray-900 p-3 shadow-lg sm:p-4 md:p-6 lg:p-8"
-              >
-                <div className="absolute -left-2 -top-2 rounded-full bg-orange-900/50 p-1 sm:-left-3 sm:-top-3 sm:p-2 md:-left-4 md:-top-4 md:p-3 lg:p-4">
-                  <Camera className="h-4 w-4 text-red-500 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-8 lg:w-8" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-cream sm:mb-3 sm:text-xl md:mb-4 md:text-2xl">
-                  About Me
-                </h3>
-                <p className="text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
-                  A filmmaker based in Paris, France, with a dual degree in Film
-                  Art from studies across Paris, the Netherlands, and Boston.
-                  Through the Global Bachelors of Film Art (GBFA) program,
-                  I&apos;ve developed comprehensive expertise in film
-                  production, from pre- to post-production roles.
-                </p>
-              </motion.div>
             </div>
           </div>
         </div>
