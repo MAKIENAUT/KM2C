@@ -12,14 +12,19 @@ export default function PhotographyCarousels({
   i,
 }: PhotoCarouselProps) {
   return (
-    <div className="mb-8 flex flex-col gap-2 sm:mb-12 sm:gap-4 md:mb-16">
+    <div className="mb-4 flex flex-col gap-2 sm:mb-8 sm:gap-3 md:mb-12 md:gap-4 lg:mb-16">
       <h1
-        className={`${vt323.className} px-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl`}
+        className={`${vt323.className} px-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl`}
       >
         {folderTitle}
       </h1>
       <Carousel
-        opts={{ dragFree: true, loop: true }}
+        opts={{
+          dragFree: true,
+          loop: true,
+          slidesToScroll: 1,
+          align: "start",
+        }}
         plugins={[
           AutoScroll({
             stopOnInteraction: false,
@@ -30,7 +35,7 @@ export default function PhotographyCarousels({
         ]}
         className="w-full"
       >
-        <CarouselContent className="-ml-2 md:-ml-4">
+        <CarouselContent className="-ml-2 sm:-ml-3 md:-ml-4">
           {imgs.map(({ imgSlug, imgSrc, imgTitle }, j) => (
             <CarouselItem
               key={j}

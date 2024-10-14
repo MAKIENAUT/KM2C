@@ -40,17 +40,17 @@ const MenuItem = ({ link, text, img1, img2, onClick }: MenuItemProps) => {
     <Link
       href={link}
       onClick={onClick}
-      className="group px-4 hover:bg-white"
+      className="group px-2 hover:bg-white sm:px-4"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-center gap-8 text-8xl text-white group-hover:text-[#7C0A02]">
+      <div className="flex items-center gap-2 text-3xl text-white group-hover:text-[#7C0A02] sm:gap-4 sm:text-5xl md:gap-8 md:text-6xl lg:text-8xl">
         <Image
           alt="menu icon"
           src={isHovered ? img2 : img1}
           width={64}
           height={64}
-          className="w-16 transition-all duration-300"
+          className="w-8 transition-all duration-300 sm:w-12 md:w-16"
         />
         {text}
       </div>
@@ -84,7 +84,7 @@ export const BaseNavbar = ({
             : "bg-transparent"
         } ${isMenuOpen ? "bg-transparent" : ""}`}
       >
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20">
           {!isMenuOpen && (
             <Link href="/" className="cursor-pointer">
               <Image
@@ -92,7 +92,7 @@ export const BaseNavbar = ({
                 alt="KM2C Logo"
                 width={48}
                 height={48}
-                className="h-12 w-auto cursor-pointer transition-all duration-300"
+                className="h-8 w-auto cursor-pointer transition-all duration-300 sm:h-12"
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </Link>
@@ -107,7 +107,7 @@ export const BaseNavbar = ({
               src={isMenuOpen ? "/close-icon.svg" : "/icon-menu.svg"}
               width={40}
               height={40}
-              className="transition-all duration-300"
+              className="w-8 transition-all duration-300 sm:w-10"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </button>
@@ -122,9 +122,9 @@ export const BaseNavbar = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`${vt323.className} fixed inset-0 z-40 min-h-screen w-screen bg-barn-red p-16`}
+            className={`${vt323.className} fixed inset-0 z-40 min-h-screen w-screen bg-barn-red p-4 sm:p-8 md:p-16`}
           >
-            <div className="mb-12 flex items-center justify-center gap-8 text-8xl text-white">
+            <div className="mb-6 flex items-center justify-center gap-4 text-4xl text-white sm:mb-12 sm:gap-8 sm:text-6xl md:text-8xl">
               <Image
                 src="/menu-dashed-line.svg"
                 alt="Menu dashed line"
@@ -142,7 +142,7 @@ export const BaseNavbar = ({
               />
             </div>
             <div className="flex flex-col items-center">
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2 sm:gap-4">
                 {LINK_VALUES.map((linkProps) => (
                   <MenuItem
                     key={linkProps.link}
