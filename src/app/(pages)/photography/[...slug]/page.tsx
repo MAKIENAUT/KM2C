@@ -14,16 +14,8 @@ export default function DynamicImagePage({
   params: { slug: string };
 }) {
   const [imageLoading, setImageLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
   useNavbarHeightGetter();
   const router = useRouter();
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const currentFolder = PHOTO_VALUES.findIndex((photos) =>
     photos.folderSlug.includes(params.slug[0])

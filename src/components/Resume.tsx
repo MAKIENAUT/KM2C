@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { forwardRef, useRef, useEffect } from "react";
-import { Mail, Phone, Languages, Camera } from "lucide-react";
+import { Mail, Languages } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -130,7 +130,7 @@ export const Resume = forwardRef<HTMLElement, ResumeProps>(
     });
 
     const profileY = useTransform(scrollYProgress, [0, 0.2], [0, -30]);
-    const bioY = useTransform(scrollYProgress, [0.1, 0.3], [30, -30]);
+    // const bioY = useTransform(scrollYProgress, [0.1, 0.3], [30, -30]);
 
     useEffect(() => {
       const container = containerRef.current;
