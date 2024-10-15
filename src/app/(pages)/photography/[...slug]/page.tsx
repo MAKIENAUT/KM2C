@@ -65,10 +65,15 @@ export default function DynamicImagePage({
     index: number;
     direction: "prev" | "next";
   }) => {
-    const size = index === 0 ? "h-32 w-32 scale-110" : "h-20 w-20";
+    const size =
+      index === 0
+        ? "h-16 w-16 sm:h-24 sm:w-24 md:h-32 md:w-32 scale-110"
+        : "h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20";
     const opacity = index === 0 ? "opacity-100" : "opacity-70";
     const translateX =
-      direction === "prev" ? "-translate-x-5" : "translate-x-5";
+      direction === "prev"
+        ? "-translate-x-2 sm:-translate-x-3 md:-translate-x-5"
+        : "translate-x-2 sm:translate-x-3 md:translate-x-5";
     return (
       <Link
         href={`${PHOTO_VALUES[currentFolder].folderSlug}${photo.imgSlug}`}
@@ -86,12 +91,12 @@ export default function DynamicImagePage({
           alt={photo.imgTitle}
           src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo.imgSrc}`}
           fill
-          sizes={index === 0 ? "200px" : "120px"}
+          sizes="(max-width: 640px) 96px, (max-width: 768px) 144px, 200px"
           className="object-cover"
           loading="lazy"
         />
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity group-hover:opacity-100">
-          <span className="text-sm text-white">
+          <span className="text-xs text-white sm:text-sm">
             {direction === "prev" ? "Previous" : "Next"}
           </span>
         </div>
@@ -100,11 +105,11 @@ export default function DynamicImagePage({
   };
 
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center bg-black px-4 py-8 md:px-8">
+    <section className="relative flex min-h-screen flex-col items-center justify-center bg-black px-2 py-4 sm:px-4 sm:py-8">
       <div className="flex w-full max-w-7xl items-center justify-between">
-        <div className="flex w-full items-center justify-between">
+        <div className="flex w-full flex-col items-center justify-between sm:flex-row">
           {/* Previous Images Previews */}
-          <div className="flex w-80 flex-row-reverse items-center justify-between gap-2">
+          <div className="mb-4 flex w-full flex-row items-center justify-center gap-2 sm:mb-0 sm:w-1/4 sm:flex-row-reverse sm:justify-start">
             {prevPhotos.reverse().map((prevPhoto, index) => (
               <PreviewImage
                 key={prevPhoto.imgSlug}
@@ -116,8 +121,8 @@ export default function DynamicImagePage({
           </div>
 
           {/* Main Image */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="relative h-[70vh] max-h-full w-[50vh] max-w-full overflow-hidden">
+          <div className="flex w-full flex-col items-center justify-center sm:w-1/2">
+            <div className="relative h-[50vh] w-full max-w-full overflow-hidden sm:h-[60vh] sm:w-[40vh] md:h-[70vh] md:w-[50vh]">
               <Image
                 alt={currentPhoto?.imgTitle}
                 className={`transform object-contain transition-transform duration-700 ease-in-out ${
@@ -125,20 +130,20 @@ export default function DynamicImagePage({
                 }`}
                 src={`${PHOTO_VALUES[currentFolder].folderSrc}${currentPhoto?.imgSrc}`}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vh"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 40vh, 50vh"
                 loading="eager"
                 priority
               />
             </div>
             <h1
-              className={`${vt323.className} mt-4 text-center text-xl text-cream sm:text-2xl md:text-3xl`}
+              className={`${vt323.className} mt-2 text-center text-lg text-cream sm:mt-4 sm:text-xl md:text-2xl lg:text-3xl`}
             >
               {currentPhoto?.imgTitle}
             </h1>
           </div>
 
           {/* Next Images Previews */}
-          <div className="flex w-80 items-center justify-between">
+          <div className="mt-4 flex w-full items-center justify-center gap-2 sm:mt-0 sm:w-1/4 sm:justify-end">
             {nextPhotos.map((nextPhoto, index) => (
               <PreviewImage
                 key={nextPhoto.imgSlug}
@@ -154,7 +159,7 @@ export default function DynamicImagePage({
       {/* Back button */}
       <Link
         href="/photography"
-        className="absolute left-24 top-28 text-sm text-white hover:text-chili-red md:left-8 md:top-24 md:text-base"
+        className="absolute left-4 top-20 text-xs text-white hover:text-chili-red sm:left-8 sm:top-24 sm:text-sm md:text-base"
       >
         ← Back to Photography
       </Link>
