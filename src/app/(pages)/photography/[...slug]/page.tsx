@@ -8,6 +8,13 @@ import Link from "next/link";
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
+// Define a type for the photo object
+interface Photo {
+  imgSlug: string;
+  imgSrc: string;
+  imgTitle: string;
+}
+
 export default function DynamicImagePage({
   params,
 }: {
@@ -16,7 +23,7 @@ export default function DynamicImagePage({
   const [isPending, startTransition] = useTransition();
   const [currentIndex, setCurrentIndex] = useState(0);
   useNavbarHeightGetter();
-  const router = useRouter();
+  // const router = useRouter();
 
   const currentFolder = PHOTO_VALUES.findIndex((photos) =>
     photos.folderSlug.includes(params.slug[0])
@@ -41,7 +48,7 @@ export default function DynamicImagePage({
     return () => clearInterval(timer);
   }, [photos.length]);
 
-  const getPhotoAtIndex = (index: number) => {
+  const getPhotoAtIndex = (index: number): Photo => {
     const normalizedIndex = (index + photos.length) % photos.length;
     return photos[normalizedIndex];
   };
@@ -61,7 +68,7 @@ export default function DynamicImagePage({
     index,
     direction,
   }: {
-    photo: any;
+    photo: Photo;
     index: number;
     direction: "prev" | "next";
   }) => {
