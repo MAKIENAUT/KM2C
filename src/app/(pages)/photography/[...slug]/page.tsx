@@ -5,142 +5,171 @@ import useNavbarHeightGetter from "@/hooks/useNavbarHeightGetter";
 import { PHOTO_VALUES } from "@/lib/values";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useTransition } from "react";
+// import { useRouter } from "next/navigation";
+
+// Define a type for the photo object
+interface Photo {
+  imgSlug: string;
+  imgSrc: string;
+  imgTitle: string;
+}
 
 export default function DynamicImagePage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const [imageLoading, setImageLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [currentIndex, setCurrentIndex] = useState(0);
   useNavbarHeightGetter();
-  const router = useRouter();
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  // const router = useRouter();
 
   const currentFolder = PHOTO_VALUES.findIndex((photos) =>
     photos.folderSlug.includes(params.slug[0])
   );
 
-  const currentIndex = PHOTO_VALUES[currentFolder].imgs.findIndex(
-    (photo) => photo.imgSlug.slice(1) === params.slug[1]
-  );
+  const photos = PHOTO_VALUES[currentFolder].imgs;
 
-  const photo = PHOTO_VALUES[currentFolder].imgs[currentIndex];
+  useEffect(() => {
+    const initialIndex = photos.findIndex(
+      (photo) => photo.imgSlug.slice(1) === params.slug[1]
+    );
+    setCurrentIndex(initialIndex);
+  }, [params.slug, photos]);
 
-  const prevPhoto =
-    currentIndex === 0
-      ? PHOTO_VALUES[currentFolder].imgs[
-          PHOTO_VALUES[currentFolder].imgs.length - 1
-        ]
-      : PHOTO_VALUES[currentFolder].imgs[currentIndex - 1];
+  useEffect(() => {
+    const timer = setInterval(() => {
+      startTransition(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+      });
+    }, 5000);
 
-  const nextPhoto =
-    currentIndex === PHOTO_VALUES[currentFolder].imgs.length - 1
-      ? PHOTO_VALUES[currentFolder].imgs[0]
-      : PHOTO_VALUES[currentFolder].imgs[currentIndex + 1];
+    return () => clearInterval(timer);
+  }, [photos.length]);
 
-  return (
-    <section className="width-full relative box-border flex min-h-screen items-center justify-center bg-black px-4 py-8 md:px-8">
+  const getPhotoAtIndex = (index: number): Photo => {
+    const normalizedIndex = (index + photos.length) % photos.length;
+    return photos[normalizedIndex];
+  };
+
+  const currentPhoto = getPhotoAtIndex(currentIndex);
+  const prevPhotos = [
+    getPhotoAtIndex(currentIndex - 2),
+    getPhotoAtIndex(currentIndex - 1),
+  ];
+  const nextPhotos = [
+    getPhotoAtIndex(currentIndex + 1),
+    getPhotoAtIndex(currentIndex + 2),
+  ];
+
+  const PreviewImage = ({
+    photo,
+    index,
+    direction,
+  }: {
+    photo: Photo;
+    index: number;
+    direction: "prev" | "next";
+  }) => {
+    const size =
+      index === 0
+        ? "h-16 w-16 sm:h-24 sm:w-24 md:h-32 md:w-32 scale-110"
+        : "h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20";
+    const opacity = index === 0 ? "opacity-100" : "opacity-70";
+    const translateX =
+      direction === "prev"
+        ? "-translate-x-2 sm:-translate-x-3 md:-translate-x-5"
+        : "translate-x-2 sm:translate-x-3 md:translate-x-5";
+    return (
       <Link
-        href={`${PHOTO_VALUES[currentFolder].folderSlug}${prevPhoto?.imgSlug}`}
-        className="group absolute left-2 z-10 p-2 transition-colors hover:bg-red-600 md:left-4"
+        href={`${PHOTO_VALUES[currentFolder].folderSlug}${photo.imgSlug}`}
+        className={`group relative ${size} transform overflow-hidden rounded-lg transition-all ${translateX} hover:scale-105 ${opacity}`}
+        onClick={(e) => {
+          e.preventDefault();
+          startTransition(() => {
+            setCurrentIndex(
+              photos.findIndex((p) => p.imgSlug === photo.imgSlug)
+            );
+          });
+        }}
       >
         <Image
-          alt="left arrow icon"
-          src="/left-arrow-icon.svg"
-          width={0}
-          height={0}
-          className="w-6 invert group-hover:brightness-100 md:w-8"
+          alt={photo.imgTitle}
+          src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo.imgSrc}`}
+          fill
+          sizes="(max-width: 640px) 96px, (max-width: 768px) 144px, 200px"
+          className="object-cover"
+          loading="lazy"
         />
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity group-hover:opacity-100">
+          <span className="text-xs text-white sm:text-sm">
+            {direction === "prev" ? "Previous" : "Next"}
+          </span>
+        </div>
       </Link>
-      <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-4 md:grid-cols-[35%_auto] md:gap-8">
-        <div className="group relative mx-auto w-full rotate-[-2deg] transition-transform duration-300 hover:rotate-0 md:mx-0 md:w-[400px]">
-          {/* Polaroid frame */}
-          <div className="relative aspect-[0.85] w-full rounded-sm bg-white p-4 shadow-[0_10px_20px_rgba(0,0,0,0.3)]">
-            {/* Image container with development effect */}
-            <div className="relative h-[calc(100%-48px)] w-full overflow-hidden bg-black">
-              <Image
-                alt={photo?.imgTitle}
-                className={`duration-[4s] object-contain transition-all ${
-                  imageLoading
-                    ? "scale-105 blur-xl grayscale"
-                    : "scale-100 blur-0 grayscale-0"
-                }`}
-                src={`${PHOTO_VALUES[currentFolder].folderSrc}${photo?.imgSrc}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 400px"
-                loading="lazy"
-                onLoadingComplete={() => setImageLoading(false)}
-                priority={false}
-              />
-              {/* Development overlay */}
-              <div
-                className={`duration-[3s] absolute inset-0 z-10 bg-white transition-opacity ${
-                  imageLoading ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            </div>
+    );
+  };
 
-            {/* Polaroid bottom area with caption */}
-            <div className="absolute bottom-4 left-4 right-4 flex h-12 items-center justify-center">
-              <p className="font-handwriting text-center text-xs text-gray-600 md:text-sm">
-                {photo?.imgTitle}
-              </p>
-            </div>
+  return (
+    <section className="relative flex min-h-screen flex-col items-center justify-center bg-black px-2 py-4 sm:px-4 sm:py-8">
+      <div className="flex w-full max-w-7xl items-center justify-between">
+        <div className="flex w-full flex-col items-center justify-between sm:flex-row">
+          {/* Previous Images Previews */}
+          <div className="mb-4 flex w-full flex-row items-center justify-center gap-2 sm:mb-0 sm:w-1/4 sm:flex-row-reverse sm:justify-start">
+            {prevPhotos.reverse().map((prevPhoto, index) => (
+              <PreviewImage
+                key={prevPhoto.imgSlug}
+                photo={prevPhoto}
+                index={index}
+                direction="prev"
+              />
+            ))}
           </div>
 
-          {/* Polaroid stack effect */}
-          <div className="absolute -bottom-2 -right-2 -z-10 h-full w-full rotate-2 rounded-sm bg-white shadow-md" />
-          <div className="rotate-4 absolute -bottom-4 -right-4 -z-20 h-full w-full rounded-sm bg-white shadow-md" />
-        </div>
+          {/* Main Image */}
+          <div className="flex w-full flex-col items-center justify-center sm:w-1/2">
+            <div className="relative h-[50vh] w-full max-w-full overflow-hidden sm:h-[60vh] sm:w-[40vh] md:h-[70vh] md:w-[50vh]">
+              <Image
+                alt={currentPhoto?.imgTitle}
+                className={`transform object-contain transition-transform duration-700 ease-in-out ${
+                  isPending ? "scale-95 opacity-50" : "scale-100 opacity-100"
+                }`}
+                src={`${PHOTO_VALUES[currentFolder].folderSrc}${currentPhoto?.imgSrc}`}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 40vh, 50vh"
+                loading="eager"
+                priority
+              />
+            </div>
+            <h1
+              className={`${vt323.className} mt-2 text-center text-lg text-cream sm:mt-4 sm:text-xl md:text-2xl lg:text-3xl`}
+            >
+              {currentPhoto?.imgTitle}
+            </h1>
+          </div>
 
-        <div className="mt-8 flex flex-col gap-4 text-cream md:mt-0">
-          <h1 className={`${vt323.className} text-4xl sm:text-6xl md:text-8xl`}>
-            {photo?.imgTitle}
-          </h1>
-          <p className="text-sm opacity-90 md:text-base">
-            {photo?.imgDescription}
-          </p>
+          {/* Next Images Previews */}
+          <div className="mt-4 flex w-full items-center justify-center gap-2 sm:mt-0 sm:w-1/4 sm:justify-end">
+            {nextPhotos.map((nextPhoto, index) => (
+              <PreviewImage
+                key={nextPhoto.imgSlug}
+                photo={nextPhoto}
+                index={index}
+                direction="next"
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      <Link
-        href={`${PHOTO_VALUES[currentFolder].folderSlug}${nextPhoto?.imgSlug}`}
-        className="group absolute right-2 z-10 p-2 transition-colors hover:bg-red-600 md:right-4"
-      >
-        <Image
-          alt="right arrow icon"
-          src="/right-arrow-icon.svg"
-          width={0}
-          height={0}
-          className="w-6 invert group-hover:brightness-100 md:w-8"
-        />
-      </Link>
-
       {/* Back button */}
-      <button
-        onClick={() => router.push("/photography")}
-        className="absolute right-4 top-4 text-sm text-white hover:text-chili-red md:right-8 md:top-8 md:text-base"
+      <Link
+        href="/photography"
+        className="absolute left-4 top-20 text-xs text-white hover:text-chili-red sm:left-8 sm:top-24 sm:text-sm md:text-base"
       >
-        Back to Photography
-      </button>
-
-      {/* Add @font-face for handwriting font */}
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Kalam&display=swap");
-
-        .font-handwriting {
-          font-family: "Kalam", cursive;
-        }
-      `}</style>
+        ← Back to Photography
+      </Link>
     </section>
   );
 }
