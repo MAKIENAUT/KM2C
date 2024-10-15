@@ -6,7 +6,7 @@ import { PHOTO_VALUES } from "@/lib/values";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useTransition } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 // Define a type for the photo object
 interface Photo {
