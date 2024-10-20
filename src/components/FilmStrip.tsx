@@ -18,7 +18,7 @@ export default function FilmStrip({ src, title, slug }: FilmStripProps) {
             src="/film-strip.svg"
             width={0}
             height={0}
-            className="z-10 w-80 drop-shadow-white filter"
+            className="z-10 w-96 drop-shadow-white filter"
             loading="eager"
             priority={true}
           />

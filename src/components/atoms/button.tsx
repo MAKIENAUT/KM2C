@@ -29,7 +29,7 @@ const buttonVariants = cva("inline-flex items-center justify-center", {
       lg: "h-11 rounded-md px-8",
       icon: "h-10 w-10",
       menu: "",
-      "film-strip": "w-auto min-w-80",
+      "film-strip": "w-auto min-w-96",
     },
   },
   defaultVariants: {
