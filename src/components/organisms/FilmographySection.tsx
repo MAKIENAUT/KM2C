@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { vt323 } from "@/lib/fonts";
 import { Camera, Grid, Battery, Wifi } from "lucide-react";
 import { galleryItems } from "@/data/FilmographyData";
+import Script from "next/script";
 import {
   SlideshowItem,
   VideoItem,
@@ -29,7 +30,7 @@ const VideoGallerySection: React.FC = () => {
           (currentSlide + 1) %
             (currentGalleryItem as SlideshowItem).images.length
         );
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
     }
     return () => clearInterval(slideInterval);
   }, [currentGalleryItem, currentSlide]);
@@ -39,7 +40,7 @@ const VideoGallerySection: React.FC = () => {
     setTimeout(() => {
       setCurrentSlide(newSlide);
       setIsTransitioning(false);
-    }, 300); // Match this with the transition duration in CSS
+    }, 300);
   };
 
   const ViewfinderScreen: React.FC = () => {
@@ -47,6 +48,10 @@ const VideoGallerySection: React.FC = () => {
 
     return (
       <div className="relative h-screen w-full bg-black pt-20 font-mono">
+        <Script
+          src="https://player.vimeo.com/api/player.js"
+          strategy="lazyOnload"
+        />
         <div className="flex h-full">
           {/* Main content area */}
           <div className="relative flex-1 p-4">
@@ -74,7 +79,6 @@ const VideoGallerySection: React.FC = () => {
                     title="Following the Sky"
                     className="w-full"
                   />
-                  <script src="https://player.vimeo.com/api/player.js"></script>
 
                   {/* Complementary shots */}
                   <div className="absolute left-4 top-24 flex-col space-y-2">
