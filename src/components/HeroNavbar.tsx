@@ -44,12 +44,10 @@ export const HeroNavbar = ({
 
   return (
     <>
-      {/* Conditionally render the navbar based on scroll position */}
       {showNavbar && (
         <BaseNavbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       )}
 
-      {/* Hero Section */}
       <div ref={containerRef} className="relative h-[200vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <motion.div
@@ -68,17 +66,17 @@ export const HeroNavbar = ({
           <motion.div style={{ opacity }} className="relative h-full">
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
 
-            <div className="relative flex h-full flex-col items-center justify-center px-4">
+            <div className="relative flex h-full flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
               {isLoaded && showHeroLogo && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
-                  className="text-center"
+                  className="w-full text-center"
                 >
                   <motion.div
-                    className="mx-auto w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
+                    className="xs:max-w-[300px] mx-auto w-[80%] max-w-[250px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -101,14 +99,14 @@ export const HeroNavbar = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: showHeroLogo ? 1 : 0 }}
               transition={{ duration: 0.4 }}
-              className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center sm:bottom-10 md:bottom-12"
+              className="xs:bottom-6 absolute bottom-4 left-1/2 flex -translate-x-1/2 flex-col items-center sm:bottom-8 md:bottom-10 lg:bottom-12"
             >
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="text-white/80"
               >
-                <ChevronDown className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                <ChevronDown className="xs:h-6 xs:w-6 h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8" />
               </motion.div>
             </motion.div>
           </motion.div>
