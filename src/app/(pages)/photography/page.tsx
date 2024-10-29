@@ -6,7 +6,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/atoms/carousel";
-import FilmStrip from "@/components/FilmStrip";
+import FilmStrip from "@/components/molecules/FilmStrip";
 import { vt323 } from "@/lib/fonts";
 import { PHOTO_VALUES } from "@/lib/values";
 import AutoScroll from "embla-carousel-auto-scroll";

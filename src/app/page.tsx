@@ -1,14 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
 import { HeroNavbar } from "@/components/HeroNavbar";
-import { Resume } from "@/components/Resume";
+import { Resume } from "@/components/Overview";
 import { useInView } from "@/hooks/useInView";
 import { spaceGrotesk } from "@/lib/fonts";
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Increase precision of thresholds near 1.0
   const thresholds = [
     ...Array.from({ length: 90 }, (_, i) => i / 100),
     ...Array.from({ length: 100 }, (_, i) => 0.9 + i / 1000),
@@ -17,9 +16,11 @@ export default function Home() {
 
   return (
     <body
-      className={`${spaceGrotesk.className} ${isMenuOpen ? "overflow-hidden" : ""} relative bg-black transition-all`}
+      className={`${spaceGrotesk.className} ${
+        isMenuOpen ? "overflow-hidden" : ""
+      } relative min-h-screen w-full bg-black transition-all`}
     >
-      <main className="w-full">
+      <main className="relative w-full">
         <HeroNavbar
           contentRef={contentRef}
           isMenuOpen={isMenuOpen}

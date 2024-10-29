@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { vt323 } from "@/lib/fonts";
 import { Camera, Grid, Battery, Wifi } from "lucide-react";
 import { galleryItems } from "@/data/FilmographyData";
+import Script from "next/script";
 import {
   SlideshowItem,
   VideoItem,
@@ -28,7 +30,7 @@ const VideoGallerySection: React.FC = () => {
           (currentSlide + 1) %
             (currentGalleryItem as SlideshowItem).images.length
         );
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
     }
     return () => clearInterval(slideInterval);
   }, [currentGalleryItem, currentSlide]);
@@ -38,7 +40,7 @@ const VideoGallerySection: React.FC = () => {
     setTimeout(() => {
       setCurrentSlide(newSlide);
       setIsTransitioning(false);
-    }, 300); // Match this with the transition duration in CSS
+    }, 300);
   };
 
   const ViewfinderScreen: React.FC = () => {
@@ -46,6 +48,10 @@ const VideoGallerySection: React.FC = () => {
 
     return (
       <div className="relative h-screen w-full bg-black pt-20 font-mono">
+        <Script
+          src="https://player.vimeo.com/api/player.js"
+          strategy="lazyOnload"
+        />
         <div className="flex h-full">
           {/* Main content area */}
           <div className="relative flex-1 p-4">
@@ -67,20 +73,13 @@ const VideoGallerySection: React.FC = () => {
             <div className="relative flex h-5/6 w-full justify-center overflow-hidden rounded-md border border-gray-800">
               {currentGalleryItem.type === "Video" ? (
                 <>
-                  {/* <YouTube
-                    videoId={(currentGalleryItem as VideoItem).videoSrc}
-                    // opts={opts}
-                    // onReady={this._onReady}
-                    className="aspect-video w-full self-stretch md:min-h-96"
-                  /> */}
                   <iframe
-                    src={(currentGalleryItem as VideoItem).videoSrc}
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="aspect-video w-full self-stretch md:min-h-96"
+                    src="https://player.vimeo.com/video/1019954906?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                    title="Following the Sky"
+                    className="w-full"
                   />
+
                   {/* Complementary shots */}
                   <div className="absolute left-4 top-24 flex-col space-y-2">
                     {(currentGalleryItem as VideoItem).complementaryShots.map(
@@ -185,12 +184,14 @@ const VideoGallerySection: React.FC = () => {
   };
 
   const GalleryScreen: React.FC = () => (
-    <div className="min-h-screen bg-black p-2 text-white sm:p-4">
+    <div className="mt-24 box-border bg-black text-white sm:p-4">
       {/* Gallery Header */}
       <div className="mb-4 flex flex-col items-start justify-between border-b border-gray-800 pb-4 sm:mb-6 sm:flex-row sm:items-center">
-        <h1 className="mb-2 flex items-center font-mono text-xl sm:mb-0 sm:text-2xl">
-          <Camera className="mr-2" />
-          Gallery
+        <h1
+          className={`mb-2 flex items-center gap-4 ${vt323.className} text-xl sm:mb-0 sm:text-8xl`}
+        >
+          FILMOGRAPHY
+          <Camera size={64} />
         </h1>
         <div className="flex items-center space-x-4">
           <span className="text-sm">{galleryItems.length} Items</span>
@@ -208,14 +209,14 @@ const VideoGallerySection: React.FC = () => {
         className={`grid ${
           isGridView
             ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
-            : "grid-cols-1"
-        } gap-4 sm:gap-6`}
+            : "grid-cols-2"
+        } gap-12 px-24 sm:gap-6`}
       >
         {galleryItems.map((item: GalleryItem) => (
           <div
             key={item.id}
             onClick={() => setSelectedItem(item.id)}
-            className="group relative cursor-pointer"
+            className="group relative cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
           >
             <img
               src={
@@ -224,7 +225,7 @@ const VideoGallerySection: React.FC = () => {
                   : (item as SlideshowItem).images[0]
               }
               alt={item.title}
-              className="aspect-video w-full border border-gray-800 object-cover"
+              className="aspect-video w-full border border-gray-800 object-cover transition-all duration-300 ease-in-out group-hover:border-red-500 group-hover:shadow-[0_0_15px_rgba(255,0,0,0.7)]"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 p-2 font-mono opacity-0 transition-opacity group-hover:opacity-100">
               <div className="flex justify-between text-xs">

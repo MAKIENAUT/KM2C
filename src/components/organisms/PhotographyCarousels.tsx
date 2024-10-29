@@ -2,7 +2,7 @@ import React from "react";
 import { vt323 } from "@/lib/fonts";
 import { Carousel, CarouselContent, CarouselItem } from "../atoms/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
-import FilmStrip from "../FilmStrip";
+import FilmStrip from "../molecules/FilmStrip";
 
 export default function PhotographyCarousels({
   folderTitle,

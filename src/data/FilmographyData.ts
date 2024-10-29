@@ -32,7 +32,7 @@ export const galleryItems: GalleryItem[] = [
       type: "Narrative",
       role: "Director, writer",
       synopsis:
-        "A coming-of-age film centered on Rooster, a naive young woman who, after graduating college, returns to her hometown. As she delivers food on her bicycle, she encounters a series of strange individuals who bring her deepest fears to the surface.",
+        "'Following the sky' experimental film shot in a Bolex 16mm including handmade animation. The film is inspired by Vivian Maier with her use of reflection to take her own portraits and using the juxtaposition of moving lines with the movement of the subject. 🎧 Twilight in Boston",
     },
   } as VideoItem,
   {
